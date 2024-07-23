@@ -1,0 +1,28 @@
+colors:
+  name: pywal16
+  author: usara
+  primary:
+    background: "#151a16"
+    foreground: "#c4c5c4"
+  cursor:
+    text: "#151a16"
+    cursor: "#c4c5c4"
+  normal:
+    black: "#151a16"
+    red: "#837c3e"
+    green: "#b1813e"
+    yellow: "#465a64"
+    blue: "#498180"
+    magenta: "#817e72"
+    cyan: "#938a84"
+    white: "#8a8c8a"
+  bright:
+    black: "#4f5350"
+    red: "#AFA653"
+    green: "#ECAD53"
+    yellow: "#5E7886"
+    blue: "#62ADAB"
+    magenta: "#ACA999"
+    cyan: "#C5B9B0"
+    white: "#c4c5c4"
+

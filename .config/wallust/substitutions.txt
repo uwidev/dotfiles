@@ -1,0 +1,16 @@
+# escape curley brackets
+%s/\({{\|}}\)/{{ "\1" }}/g
+
+# convert all {color\d+} to variable
+%s/{\(color\d\+\)\.\?\(.\{-}\)\?}/\='{{' .. submatch(1) .. (submatch(2) == '' ? '' : ' | ') .. submatch(2) .. '}}'
+
+# post fitlering lighten and darken percentages to decimal
+%s/\({{color.*\)\(lighten\|darken\)(\(\d\+\)%)/\=submatch(1) .. submatch(2) .. '(' .. submatch(3)*0.01 .. ')'
+
+# Convert everything in {} to a variable with filters
+%s/{\([^\.]\+\)\.\?\(.\+\)\?}/\='{{' .. submatch(1) .. (submatch(2) == '' ? '' : ' | ') .. submatch(2) .. '}}'/g
+
+
+
+
+%s/{\(color\d\+\).\(lighten\|darken\)(\(\d\+\)%)}/\="{{" .. submatch(1) .. " | " .. submatch(2) .. '(' .. str2float(submatch(3))*0.01 .. ')}}'

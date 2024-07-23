@@ -1,0 +1,31 @@
+@use '../colors.scss';
+
+#launcher {
+    background: transparent;
+}
+
+.launcher {
+    background: colors.$background;
+    margin-top: 256px;
+    min-width: 500px;
+    border-radius: 12px;
+    /* min-height: 500px; */
+}
+
+.launcher .entry {
+    border-radius: 12px;
+    border: 2px solid colors.$color1;
+}
+
+.launcher .apps {
+    min-height: 500px;
+    margin-top: 12px;
+}
+
+.launcher button:focus {
+    background: colors.$color1;
+}
+
+.launcher button:hover {
+    background: colors.$color1;
+}

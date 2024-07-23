@@ -1,0 +1,21 @@
+#!/bin/zsh
+
+# Start hyprpaper wrapper
+# ~/.local/bin/hyprpaper-wrapper --init && hyprpaper &
+# DEPRECATED: Now using swww for easier integration with pywal16
+
+# Start wallpaper swww daemon
+swww-daemon &
+
+# Update Xorg
+#xrdb -merge $XDG_CONFIG_HOME/X11/Xresources
+# should be done via sync-theme now
+
+# Wait until hyprpaper has set the wallpaper
+# We currently do this because we need a way to get the current wallpaper that is set. Optimally, we'd like to get it independently of hyprpaper, for example, getting it from hyprpaper-wrapper. But it's currently not implemented. So this works for now...
+# DEPRECATED: See above deprecation notice
+#while [ -z "$(hyprctl hyprpaper listactive | grep =)" ]; do
+#    sleep 0.1
+#done
+
+sync-theme

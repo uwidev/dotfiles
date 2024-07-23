@@ -1,0 +1,15 @@
+@use "./colors";
+
+@use './widgets/notifications';
+@use './widgets/bar';
+@use './widgets/launcher.scss';
+
+
+* {
+    font-family: Syne, "Symbols Nerd Font", sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    /* min-height: 24px; */
+    border: none;
+    color: colors.$foreground;
+}

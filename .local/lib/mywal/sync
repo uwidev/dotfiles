@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# Applies base16 coloring based on pywal generated from current wallpaper
+# args:
+#   $1: path to image to sync to (defualt: $XDG_CACHE_HOME/wal/wal)
+
+if [ -f "$1" ] || [ -z "$1" ]; then
+	img="${1:-$(cat "$XDG_CACHE_HOME"/wal/wal)}"
+else
+	echo "Error: $1 is not a file"
+	exit 1
+fi
+
+THEME_NAME=pywal
+
+# img=${1:-$(cat "$XDG_CACHE_HOME"/wal/wal)}
+
+# killall -SIGUSR1 waybar
+
+# generate wal cache
+wallust run "$img"
+# wal -i "$img" -n --cols16 darken  # wider colors with cols6
+# wal -l -i "$img" -n --cols16 lighten  # wider colors with cols6
+
+# copy cache colors to appropriate locations
+# echo Copying generated colors over to appropriate locations...
+# cp ~/.cache/wal/colors-hyprland.conf ~/.config/hypr/$THEME_NAME.conf		# hyprland
+# cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/$THEME_NAME.css		# waybar
+# cp ~/.cache/wal/colors.scss ~/.config/ags/style/colors.scss
+# cp ~/.cache/wal/colors.Xresources ~/.config/X11/Xresources.d/$THEME_NAME.Xresources	# gtk
+# cp ~/.cache/wal/colors-rofi-dark.rasi ~/.config/rofi/$THEME_NAME.rasi
+# cp ~/.cache/wal/colors-termusic.yml ~/.config/termusic/themes/pywal16.yml
+# cp ~/.cache/wal/colors-discord.css ~/.config/vesktop/themes/colors-discord.css # discord
+# echo Copied colors
+
+# reload appropriate applications
+echo Reloading environment...
+# touch ~/.config/hypr/hyprland.conf	# hyprland (hacky touchy config)
+hyprctl reload config-only # hyprland (formal)
+
+# If waybar started way too close to running this script, waybar
+# will crash. Just boot it back up... I guess.
+#if [ -z $(pgrep waybar) ]
+#then
+#    waybar &
+#fi
+
+# Slightly more elegant waybar crash handling by preventing crashing.
+# It does this by checking waybar lifetime, and only sending SIGUSR2
+# if it has lived for more than 1 second, otherwise if it's make sure
+# it's running, and kill it and restart.
+#waybar_pid=$(pgrep waybar)
+#if [ $waybar_pid ] && [ $(ps -p $waybar_pid -o etimes=) -gt 1 ]
+#then
+#    killall -SIGUSR2 waybar
+#elif [ $(waybar_pid) ]
+#then
+#    killall waybar
+#    waybar &
+#fi
+
+apply-kvantum-gradience -s # qt AND gtmk through eylles's pywal16-libadwaita
+xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources
+# ~/.config/mako/sync-mako		# mako
+~/.local/src/pywal-obsidianmd/pywal-obsidianmd.sh '/mnt/storage/Projects/00 Critical/00 In Progress/vault'
+
+sleep 0.5 # wait a bit for swww transition
+# killall -SIGUSR2 waybar			# waybar (as of v0.9.5)
+# Sometimes waybar crashes when reloading...
+# if ! pgrep waybar > /dev/null; then
+# waybar > /dev/null &
+# fi
+
+# oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse	# gtk through oomox-cli, doesn't do icons
+#oomox-archdroid-icons-cli -d "$XDG_DATA_HOME"/icons/oomox-xresources-reverse-flat /opt/oomox/scripted_colors/xresources/xresources-reverse	# icons, rebuilt by oomox
+
+pywalfox update # firefox
+apply-vim
+
+echo Reloaded environment
