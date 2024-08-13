@@ -1,36 +1,32 @@
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-#ZSH_THEME=""
+########### SETUP #########
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# zsh specific HISTFILE 
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTSIZE=5000
+export SAVEHIST=$HISTSIZE
+export HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+# plugin manager
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-COMPLETION_WAITING_DOTS="true"
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+source "${ZINIT_HOME}/zinit.zsh"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git man sudo)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
+# themeing
+# source $ZSH/oh-my-zsh.sh
+eval "$(oh-my-posh init zsh --config $XDG_CONFIG_HOME/ohmyposh/config.toml)"
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -39,36 +35,54 @@ source $ZSH/oh-my-zsh.sh
 #   export EDITOR='mvim'
 # fi
 
-# Quickly get hyprland logs
-alias hyprlog="cat $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log"
-alias hyprlog-stream="tail -f $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log"
-alias adb='HOME="$XDG_DATA_HOME"/android adb'
+# Load completions
+autoload -Uz compinit && compinit
+compdef _git dotfiles
 
-alias vim=nvim
+zinit cdreplay -q
 
-# To get sudo to alias correctly
-alias sudo='sudo '
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
-# Alias run-help to help
-autoload -Uz run-help
-(( ${+aliases[run-help]} )) && unalias run-help
-alias help=run-help
+# Add in zsh plugins
+# zinit light zsh-users/zsh-syntax-highlighting
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
 
-# feh
-#alias feh="feh --image-bg black"
+# Add in snippets
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::archlinux
+# zinit snippet OMZP::aws
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+# zinit snippet OMZP::autoenv
+zinit snippet OMZP::dotenv
 
-# Enable autocompletion
-autoload -U compinit; compinit
+# Keybindings
+bindkey -v
+bindkey '^p' up-line-or-beginning-search
+bindkey '^n' down-line-or-beginning-search
+bindkey '^y' accept-line
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
 
-# Sourcing
-source ~/.config/zsh/completion.sh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Move zcoredumps out of home
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+eval "$(fzf --zsh)"
 
 # Set title
 autoload -Uz add-zsh-hook
@@ -88,17 +102,12 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
 	add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
-# Move zcoredumps out of home
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
-# Apply themeing from pywal
-(cat ~/.cache/wal/sequences &)
-source ~/.cache/wal/colors-tty.sh
-
-# zsh specific HISTFILE
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
-
-# foot integratio
+# foot integration
 function osc7-pwd() {
     emulate -L zsh # also sets localoptions for us
     setopt extendedglob
@@ -110,3 +119,61 @@ function chpwd-osc7-pwd() {
     (( ZSH_SUBSHELL )) || osc7-pwd
 }
 add-zsh-hook -Uz chpwd chpwd-osc7-pwd
+
+# zoxide better cd
+eval "$(zoxide init --cmd cd zsh)"
+ZO_EXCLUDE_DIRS='$HOME:/home/private'
+
+# Apply themeing from pywal
+# (cat ~/.cache/wal/sequences) # pywal
+cat ~/.cache/wallust/sequences # wallust
+
+######### ALIASES ############
+# Quickly get hyprland logs
+alias hyprlog="cat $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log"
+alias hyprlog-stream="tail -f $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 1)/hyprland.log"
+alias adb='HOME="$XDG_DATA_HOME"/android adb'
+
+alias vim=nvim
+
+# To get sudo to alias correctly
+alias sudo='sudo '
+# An alias alternative... but it will notify literally whenever sudo is ran, even when doing sudo --help
+# alias sudo='sudo -n true || notify-send "Sudo Password Prompt" "Please enter your sudo password" && sudo  '
+
+# Per xdg-ninja alias to declutter $HOME
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+alias ls='ls --color'
+alias l='ls -Alh'
+
+# Docker alias wrapper to ignore .env files on compose
+# Needs to be a function parser to support subcommands
+# Unfortunately, breaks autocompletion
+# docker () {
+#     echo "docker alias"
+# 	case $1 in
+# 		compose)
+# 		    echo "compose"
+# 			shift # handle compose ourselves
+# 			command docker compose --env-file /dev/null "$@"
+# 			;;
+# 		*)
+# 			command docker "$@"
+# 			;;
+#     esac
+# }
+
+# yazi wrapper to cd as we navigate
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
+
+# dotfiles
+alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
