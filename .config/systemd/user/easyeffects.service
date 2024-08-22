@@ -1,0 +1,13 @@
+[Unit]
+Description=EasyEffects
+After=pipewire-pulse.service
+BindsTo=pipewire-pulse.service
+PartOf=pipewire-pulse.service
+
+[Service]
+Type=simple
+ExecStart=easyeffects --gapplication-service
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
