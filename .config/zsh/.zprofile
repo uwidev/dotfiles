@@ -65,8 +65,8 @@ export RANGER_LOAD_DEFAULT_RC=false
 ################
 ### Sourcing ###
 ################
-pathappend "$XDG_DATA_HOME"/cargo/bin
-pathappend ~/.local/bin
+pathprepend "$XDG_DATA_HOME"/cargo/bin
+pathprepend ~/.local/bin
 #export PATH="${PATH}:/home/Timmy/.local/bin"
 #export PATH="${PATH}:/home/Timmy/.cargo/bin"
 
