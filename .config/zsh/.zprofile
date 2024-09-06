@@ -82,13 +82,6 @@ export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export NVD_BACKEND=direct
 export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
-# Nvidia
-export LIBVA_DRIVER_NAME=nvidia
-export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export NVD_BACKEND=direct
-export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
-
 # Themeing (for wayland)
 # Cursor
 export HYPRCURSOR_THEME=Posy_Cursor_Black_h

@@ -121,7 +121,8 @@ function chpwd-osc7-pwd() {
 add-zsh-hook -Uz chpwd chpwd-osc7-pwd
 
 # zoxide better cd
-eval "$(zoxide init --cmd cd zsh)"
+# eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init zsh)"
 ZO_EXCLUDE_DIRS='$HOME:/home/private'
 
 # Apply themeing from pywal
