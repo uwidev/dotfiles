@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/env bash
 
 # Start hyprpaper wrapper
 # ~/.local/bin/hyprpaper-wrapper --init && hyprpaper &
@@ -18,4 +18,10 @@ swww-daemon &
 #    sleep 0.1
 #done
 
-sync-theme
+PACKAGE_DIR="$HOME/.local/lib/mywal"
+if [ ! -d "$PACKAGE_DIR" ]; then
+	echo mywal package does not exist a "$PACKAGE_DIR"
+fi
+
+cd "$PACKAGE_DIR" || exit
+./sync
