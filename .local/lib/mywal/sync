@@ -61,8 +61,8 @@ hyprctl reload config-only # hyprland (formal)
 
 apply-kvantum-gradience -s # qt AND gtmk through eylles's pywal16-libadwaita
 xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources
-# ~/.config/mako/sync-mako		# mako
-~/.local/src/pywal-obsidianmd/pywal-obsidianmd.sh '/mnt/storage/Projects/00 Critical/00 In Progress/vault'
+~/.config/mako/sync-mako # mako
+# ~/.local/src/pywal-obsidianmd/pywal-obsidianmd.sh '/mnt/storage/Projects/00 Critical/00 In Progress/vault'
 
 sleep 0.5 # wait a bit for swww transition
 # killall -SIGUSR2 waybar			# waybar (as of v0.9.5)
