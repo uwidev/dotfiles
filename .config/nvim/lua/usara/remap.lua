@@ -52,7 +52,8 @@ vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>k', '<cmd>lprev<CR>zz')
 
-vim.keymap.set('n', '<leader>sS', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[S]earch and [S]ubstitute under cursor' })
+vim.keymap.set('n', '<leader>sS', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[s]earch and [S]ubstitute under cursor' })
+vim.keymap.set({ 'v' }, '<leader>s', [[y|:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>]], { desc = '[s]earch and sbstitute (v)isual' })
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'chmod +[x] current file' })
 
 -- vim.keymap.set('n', '<leader><leader>', function()
