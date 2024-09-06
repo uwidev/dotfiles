@@ -47,17 +47,17 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export EDITOR=nvim
 export HYPRLAND_NO_SD_NOTIFY=1
 
-# For Firefox Nvidia VA-API Hardware Acceleration
-# See https://wiki.hyprland.org/Nvidia/#va-api-hardware-video-acceleration
-export MOZ_DISABLE_RDD_SANDBOX=1
-export LIBVA_DRIVER_NAME=nvidia
-export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+# # For Firefox Nvidia VA-API Hardware Acceleration
+# # See https://wiki.hyprland.org/Nvidia/#va-api-hardware-video-acceleration
+# export MOZ_DISABLE_RDD_SANDBOX=1
+# export LIBVA_DRIVER_NAME=nvidia
+# export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 #export ELECTRON_OZONE_PLATFORM_HINT=auto
 
-# Vulkan use nvidia
-# See https://wiki.archlinux.org/title/Vulkan#NVIDIA_-_vulkan_is_not_working_and_can_not_initialize
-export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+# # Vulkan use nvidia
+# # See https://wiki.archlinux.org/title/Vulkan#NVIDIA_-_vulkan_is_not_working_and_can_not_initialize
+# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
 # Ranger
 export RANGER_LOAD_DEFAULT_RC=false
@@ -75,12 +75,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# Nvidia
-export LIBVA_DRIVER_NAME=nvidia
-export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export NVD_BACKEND=direct
-export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+# # Nvidia
+# export LIBVA_DRIVER_NAME=nvidia
+# export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
+# export __GLX_VENDOR_LIBRARY_NAME=nvidia
+# export NVD_BACKEND=direct
+# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
 # Themeing (for wayland)
 # Cursor
