@@ -7,8 +7,8 @@ import Launcher from './widgets/launcher/launcher'
 App.config({
     windows: [
         Bar(0),
-        Bar(1),
-        NotificationsPopups(1),
+        // Bar(1),
+        NotificationsPopups(0),
         Launcher()
     ],
 })
