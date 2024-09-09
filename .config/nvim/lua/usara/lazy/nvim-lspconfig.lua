@@ -146,7 +146,7 @@ return { -- LSP Configuration & Plugins
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`tsserver`) will work just fine
-				tsserver = {
+				ts_ls = {
 					cmd = { 'typescript-language-server', '--stdio' },
 				},
 
@@ -300,10 +300,6 @@ return { -- LSP Configuration & Plugins
 				function(server_name)
 					-- Temporary patch while we wait for Mason to update for ts_ls
 					-- https://github.com/williamboman/mason-lspconfig.nvim/issues/458
-					if server_name == 'tsserver' then
-						server_name = 'ts_ls'
-					end
-
 					local server = servers[server_name] or {}
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
