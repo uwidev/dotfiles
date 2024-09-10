@@ -1,0 +1,13 @@
+@use '../colors.scss';
+
+.module.battery.charging .filled {
+    background: colors.$color10;
+}
+
+.module.battery.charged .filled {
+    background: colors.$color4;
+}
+
+.module.battery.low .filled {
+    background: colors.$color9;
+}

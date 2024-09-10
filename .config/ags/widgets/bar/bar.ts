@@ -168,6 +168,17 @@ function Volume() {
 	})
 }
 
+function BatteryClass(c: boolean, p: number): string {
+	let base = 'module battery'
+	console.log(p)
+	if (c) {
+		return base.concat(' charging')
+	}
+	if (p > 15) {
+		return base.concat(' charged')
+	}
+	return base.concat(' low')
+}
 
 function BatteryLabel() {
 	const value = battery.bind("percent").as(p => p > 0 ? p / 100 : 0)
@@ -175,12 +186,12 @@ function BatteryLabel() {
 		`battery-level-${Math.floor(p / 10) * 10}-symbolic`)
 
 	return Widget.Box({
-		class_name: "module battery",
+		class_name: battery.bind('charging').as(ch => BatteryClass(ch, battery.percent)),
 		visible: battery.bind("available"),
 		children: [
 			Widget.Icon({ icon }),
 			Widget.LevelBar({
-				widthRequest: 140,
+				widthRequest: 64,
 				vpack: "center",
 				value,
 			}),
@@ -231,7 +242,7 @@ function Right() {
 		spacing: 8,
 		children: [
 			//Volume(),
-			//BatteryLabel(),
+			BatteryLabel(),
 			Clock(),
 			SysTray(),
 		],
