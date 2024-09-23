@@ -3,11 +3,13 @@ Description=EasyEffects
 After=pipewire-pulse.service
 BindsTo=pipewire-pulse.service
 PartOf=pipewire-pulse.service
+After=default.target
 
 [Service]
 Type=simple
 ExecStart=easyeffects --gapplication-service
 Restart=on-failure
+RestartSec=3
 
 [Install]
-WantedBy=default.target
+WantedBy=sound.target
