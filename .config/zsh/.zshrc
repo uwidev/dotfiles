@@ -146,8 +146,6 @@ alias sudo='sudo '
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
-alias ls='ls --color'
-alias l='ls -Alh'
 
 # Docker alias wrapper to ignore .env files on compose
 # Needs to be a function parser to support subcommands
@@ -178,3 +176,20 @@ function yy() {
 
 # dotfiles
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+
+# trashy aliases
+alias trash-restore="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy restore --match=exact --force"
+alias trash-empty="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy empty --match=exact --force"
+
+# better folder navigation
+alias ls='ls --color'
+alias l='ls -Alh'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# systemd management
+alias sys='systemctl'
+alias sysu='systemctl --user'
+alias ja='journalctl'
+alias jab='journalctl -b'
