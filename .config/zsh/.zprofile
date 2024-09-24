@@ -43,6 +43,8 @@ export PYTHONSTARTUP="$HOME"/python/pythonrc
 
 # May cause problems with socket file, see archwiki.
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+# END xdg-ninja
+
 
 export EDITOR=nvim
 export HYPRLAND_NO_SD_NOTIFY=1
@@ -59,28 +61,23 @@ export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.js
 # See https://wiki.archlinux.org/title/Vulkan#NVIDIA_-_vulkan_is_not_working_and_can_not_initialize
 export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
-# Ranger
-export RANGER_LOAD_DEFAULT_RC=false
-
 ################
 ### Sourcing ###
 ################
 pathprepend "$XDG_DATA_HOME"/cargo/bin
 pathprepend ~/.local/bin
-#export PATH="${PATH}:/home/Timmy/.local/bin"
-#export PATH="${PATH}:/home/Timmy/.cargo/bin"
 
 # pyenv compatibility
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# Nvidia
-export LIBVA_DRIVER_NAME=nvidia
-export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export NVD_BACKEND=direct
-export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+# # Nvidia
+# export LIBVA_DRIVER_NAME=nvidia
+# export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
+# export __GLX_VENDOR_LIBRARY_NAME=nvidia
+# export NVD_BACKEND=direct
+# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
 # Themeing (for wayland)
 # Cursor
@@ -92,18 +89,14 @@ export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
 export XCURSOR_THEME=Posy_Cursor_Black
 export XCURSOR_SIZE=32
 
-# Qt Theming Variables
-export QT_QPA_PLATFORM="wayland;xcb"
-export QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
-export QT_STYLE_OVERRIDE=kvantum
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# # Qt Theming Variables
+# export QT_QPA_PLATFORM="wayland;xcb"
+# export QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
+# export QT_STYLE_OVERRIDE=kvantum
+# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 #env = QT_AUTO_SCREEN_SCALE_FACTOR=1
 #env = QT_ENABLE_HIGHDPI_SCALING=1
-
-# swww defaults
-export SWWW_TRANSITION=random
-export SWWW_TRANSITION_STEP=90
 
 # Cool sudo colers
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
@@ -112,7 +105,7 @@ export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 
 # Fixes
 # Fix gamma correction for Electron applications
 # See https://wiki.archlinux.org/title/Font_configuration#Text_is_blurry
-export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+# export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
 
 # Force applications to use wayland
 export GDB_BACKEND=wayland,x11,*
