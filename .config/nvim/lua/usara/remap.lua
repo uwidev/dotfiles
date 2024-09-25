@@ -99,3 +99,6 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [d]i
 -- vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- Geometric incrementing
+vim.keymap.set('v', 'gA', [[:s/\d\+/\=submatch(0) * /gI<Left><Left><Left>]], { desc = 'Increment visual block geometrically' })
