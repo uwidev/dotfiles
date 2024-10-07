@@ -29,5 +29,13 @@ return { -- Highlight, edit, and navigate code
 		--    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
 		--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
 		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+
+		-- Disable treesitter for csv-related file formats and let rainbow_csv do highlighting
+		vim.api.nvim_create_autocmd('FileType', {
+			pattern = { 'csv', 'tsv', 'tab' },
+			callback = function()
+				vim.treesitter.stop()
+			end,
+		})
 	end,
 }
