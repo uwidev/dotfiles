@@ -6,15 +6,21 @@
 
 
 get_files() {
-    find "$scroll_path" -maxdepth 1 ! -name "$(printf  "*\n*")" -type f
+    find "$scroll_path" -maxdepth 1 ! -name ".*" -type f
 }
 
-# Get the index of this file
-# args:
-#   $1: path to file (default: currently file)
+# Return the index of this file in the folder
+# 
+# If the scroll init doesn't exist, return index 0
+# args
+#   $1: image to search for (optional, looks for $scroll_init by default)
 # shellcheck disable=SC2120
 get_index() {
-    get_files | grep -n "${1:-$scroll_init}" | cut -d: -f1
+    if [ -e "$scroll_init" ]; then
+        get_files | grep -n "${1:-$scroll_init}" | cut -d: -f1
+    else
+        echo 0
+    fi
 }
 
 # Get the file at this index
