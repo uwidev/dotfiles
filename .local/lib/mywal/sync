@@ -18,7 +18,7 @@ THEME_NAME=pywal
 # killall -SIGUSR1 waybar
 
 # generate wal cache
-wallust run -p darkansi -c lchansi "$img"
+wallust run "$img"
 # wal -i "$img" -n --cols16 darken  # wider colors with cols6
 # wal -l -i "$img" -n --cols16 lighten  # wider colors with cols6
 
