@@ -2,7 +2,7 @@
 
 # File scroller helper utility
 #
-# Trivially retrieve files from a directory by "scrolling".
+# Trivially retrieve a path to a file from a directory by "scrolling".
 
 
 get_files() {
@@ -112,6 +112,9 @@ case $1 in
         ;;
     prev|p)
         get_prev "$scroll_init"
+        ;;
+    reload|r)
+        cat "$HOME/.cache/wal/wal"
         ;;
     *)
         echo "Unknown subcommand $1"

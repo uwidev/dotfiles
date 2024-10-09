@@ -25,6 +25,8 @@ get_current_wallpaper() {
 #     prev|p)
 #         img=$(fscroll -p "$WAL_PICTURES" -i "$(get_current_wallpaper)" p)
 #         ;;
+#	  reload|r)
+#         img=$(fscroll -p "$WAL_PICTURES" -i "$(get_current_wallpaper)" r)
 #     *)
 #         echo "Unknown subcommand $1"
 #         exit 1
@@ -32,7 +34,7 @@ get_current_wallpaper() {
 # esac
 
 img=$(fscroll -p "$WAL_PICTURES" -i "$(get_current_wallpaper)" "$1")
-swww img "$img" --transition-type any --transition-duration 1 --transition-fps 60
-sleep 1
+swww img "$img" --transition-type any --transition-duration 1 --transition-fps 60 &
+# sleep 1
 
 sync "$img"

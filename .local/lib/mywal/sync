@@ -36,7 +36,7 @@ wallust run "$img"
 # reload appropriate applications
 echo Reloading environment...
 # touch ~/.config/hypr/hyprland.conf	# hyprland (hacky touchy config)
-hyprctl reload config-only # hyprland (formal)
+hyprctl reload config-only & # hyprland (formal)
 
 # If waybar started way too close to running this script, waybar
 # will crash. Just boot it back up... I guess.
@@ -59,12 +59,12 @@ hyprctl reload config-only # hyprland (formal)
 #    waybar &
 #fi
 
-~/.local/lib/mywal/apply-kvantum-gradience -s # qt AND gtmk through eylles's pywal16-libadwaita
-xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources
-~/.config/mako/sync-mako # mako
+~/.local/lib/mywal/apply-kvantum-gradience -s > /dev/null 2>&1 # qt AND gtmk through eylles's pywal16-libadwaita
+xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources &
+~/.config/mako/sync-mako & # mako
 # ~/.local/src/pywal-obsidianmd/pywal-obsidianmd.sh '/mnt/storage/Projects/00 Critical/00 In Progress/vault'
 
-sleep 0.5 # wait a bit for swww transition
+# sleep 0.5 # wait a bit for swww transition
 # killall -SIGUSR2 waybar			# waybar (as of v0.9.5)
 # Sometimes waybar crashes when reloading...
 # if ! pgrep waybar > /dev/null; then
@@ -74,7 +74,7 @@ sleep 0.5 # wait a bit for swww transition
 # oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse	# gtk through oomox-cli, doesn't do icons
 #oomox-archdroid-icons-cli -d "$XDG_DATA_HOME"/icons/oomox-xresources-reverse-flat /opt/oomox/scripted_colors/xresources/xresources-reverse	# icons, rebuilt by oomox
 
-pywalfox update # firefox
+pywalfox update & # firefox
 ~/.local/lib/mywal/apply-vim
 
 echo Reloaded environment

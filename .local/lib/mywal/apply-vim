@@ -15,7 +15,7 @@ theme_name=pywal-lush
 # An alternative method
 find "$vim_server_dir" -maxdepth 1 -name "nvim.*.0" \
 -exec echo Applying colorscheme to instance "$(sed -e 's>.*\/>>' <<< "{}")" \; \
--exec nvr --nostart --servername "{}" -c "LushwalCompile" \;
+-exec nvr -s --nostart --servername "{}" -c "LushwalCompile" \; &
 # -exec nvr --nostart --servername "{}" -c "colorscheme $theme_name" \;
 
 #echo Done!
