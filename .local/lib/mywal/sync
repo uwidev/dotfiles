@@ -59,6 +59,7 @@ hyprctl reload config-only & # hyprland (formal)
 #    waybar &
 #fi
 
+~/.local/lib/mywal/apply-vim &
 ~/.local/lib/mywal/apply-kvantum-gradience -s > /dev/null 2>&1 # qt AND gtmk through eylles's pywal16-libadwaita
 xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources &
 ~/.config/mako/sync-mako & # mako
@@ -75,6 +76,5 @@ xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources &
 #oomox-archdroid-icons-cli -d "$XDG_DATA_HOME"/icons/oomox-xresources-reverse-flat /opt/oomox/scripted_colors/xresources/xresources-reverse	# icons, rebuilt by oomox
 
 pywalfox update & # firefox
-~/.local/lib/mywal/apply-vim
 
 echo Reloaded environment
