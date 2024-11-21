@@ -1,0 +1,112 @@
+@use './style/colors.scss';
+
+$bg: colors.$background;
+$fg: colors.$foreground;
+$accent1: colors.$color3;
+$accent2: colors.$color5;
+$radius: 12px;
+
+window {
+    font-family: sans-serif, "Symbols Nerd Font", sans-serif, monospace;
+}
+
+window.Bar > centerbox {
+    font-size: 16px;
+    border: none;
+    border-radius: $radius;
+    box-shadow: none;
+    background-color: rgba($bg, 0.66);
+    color: $fg;
+    margin: 4px 4px 0 4px;
+    min-height: 24px;
+
+    button {
+        all: unset;
+        background-color: transparent;
+
+        &:hover {
+            background-color: rgba($fg, 0.33);
+            border-color: rgba($accent1, 0.33);
+            border-radius: $radius;
+        }
+
+        &:active {
+            background-color: rgba($fg, 0.33)
+        }
+    }
+
+    label {
+        transition: 200ms;
+        padding: 0 2px;
+        /* border: 1pt solid transparent; */
+        /* margin: 2px; */
+    }
+
+    .wbutton {
+        min-width: 24px;
+        border: 1pt solid transparent;
+        border-radius: $radius;
+    }
+
+    .focused {
+        min-width: 48px;
+        color: $accent1;
+        border-color: $accent1;
+    }
+
+    .FocusedClient {
+        color: $accent1;
+    }
+
+    .Focused{
+        /* min-height: 28px; */
+    }
+
+    .Media .Cover {
+        /* min-height: 1.2em; */
+        min-width: 1.2em;
+        border-radius: $radius;
+        background-position: center;
+        background-size: contain;
+    }
+
+    .Battery label {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    .Right {
+        margin-right: 8px;
+    }
+
+    .AudioSlider {
+        * {
+            all: unset;
+        }
+
+        icon {
+            margin-right: .6em;
+        }
+
+        margin: 0 1em;
+
+        trough {
+            background-color: transparentize($fg, 0.8);
+            border-radius: $radius;
+        }
+
+        highlight {
+            background-color: $accent1;
+            /* min-height: .8em; */
+            border-radius: $radius;
+        }
+
+        slider {
+            background-color: $fg;
+            border-radius: $radius;
+            min-height: 1em;
+            min-width: 1em;
+            margin: -.2em;
+        }
+    }
+}
