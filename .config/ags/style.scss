@@ -80,6 +80,8 @@ window.Bar > centerbox {
     }
 
     .AudioSlider {
+        margin: 0 1em;
+
         * {
             all: unset;
         }
@@ -88,10 +90,9 @@ window.Bar > centerbox {
             margin-right: .6em;
         }
 
-        margin: 0 1em;
 
         trough {
-            background-color: transparentize($fg, 0.8);
+            background-color: rgba($fg, 0.8);
             border-radius: $radius;
         }
 
