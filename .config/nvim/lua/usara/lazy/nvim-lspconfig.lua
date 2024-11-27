@@ -151,16 +151,11 @@ return { -- LSP Configuration & Plugins
 				},
 
 				-- python
-				ruff_lsp = {
-					autostart = false,
-					opts = {
-						cmd_env = { RUFF_TRACE = 'messages' },
-					},
-				},
 				ruff = {
 					-- autostart = false,
 					settings = {
 						-- args = { '--config=./pyproject.toml' },
+						-- logLevel = 'debug,',
 					},
 				},
 				jedi_language_server = {
