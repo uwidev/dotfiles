@@ -1,15 +1,12 @@
 # Auto-sourced at boot by a login shell after `~/.zshenv`
 #
-# Place tty environmental variables (envars) here, not .zshenv.
+# Place environmental variables (envars) here, not .zshenv.
 # See https://www.reddit.com/r/zsh/comments/sslfdf/move_most_things_to_zprofile_ie_why_use_zshenv/
 #
-# Graphical/compositor-specific envars should be placed in ~/.config/uwsm/env or
-# ~/.config/uwsm/env-${desktop}. This is because Wayland compositor sessions are
-# managed via universal wayland session manager (uwsm), and does not inherit
-# variables defined here.
+# These variables should be independent from the DE.
 
-# Safe PATH operations
-source ~/.env_functions
+# # Safe PATH operations
+# source ~/.env_functions
 
 ##################
 ### Set envars ###
@@ -20,12 +17,12 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
-# Safely export XDG user dirs from user config
-cat ~/.config/user-dirs.dirs |
-sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
-while IFS='\n' read -r line; do
-    eval "export $line";
-done
+# # Safely export XDG user dirs from user config
+# cat ~/.config/user-dirs.dirs |
+# sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
+# while IFS='\n' read -r line; do
+#     eval "export $line";
+# done
 
 # Cleaning up home according to xdg-ninja
 # Enforce applications to use dirs defined in env vars not clutter home dir
@@ -67,13 +64,14 @@ export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 ################
 ### Sourcing ###
 ################
-pathprepend "$XDG_DATA_HOME"/cargo/bin
-pathprepend ~/.local/bin
+
+# pathprepend "$XDG_DATA_HOME"/cargo/bin
+# pathprepend ~/.local/bin
 
 # pyenv compatibility
 export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # # Nvidia
 # export LIBVA_DRIVER_NAME=nvidia
@@ -82,27 +80,57 @@ eval "$(pyenv init -)"
 # export NVD_BACKEND=direct
 # export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
+# Themeing (for wayland)
+# Cursor
+export HYPRCURSOR_THEME=Posy_Cursor_Black_h
+export HYPRCURSOR_SIZE=32
+
+# XCursor fallback if app doesn't support server-side cursors
+export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
+export XCURSOR_THEME=Posy_Cursor_Black
+export XCURSOR_SIZE=32
+
+# # Qt Theming Variables
+# export QT_QPA_PLATFORM="wayland;xcb"
+# export QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
+# export QT_STYLE_OVERRIDE=kvantum
+# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+
+#QT_AUTO_SCREEN_SCALE_FACTOR=1
+#QT_ENABLE_HIGHDPI_SCALING=1
+
 # Cool sudo colers
 export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
+
+
+# Fixes
+# Fix gamma correction for Electron applications
+# See https://wiki.archlinux.org/title/Font_configuration#Text_is_blurry
+# export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+
+# Force applications to use wayland
+export GDB_BACKEND=wayland,x11,*
+export SDL_VIDEODRIVER=wayland
+export CLUTTER_BACKEND=wayland
 
 # Docker
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 
+# Compositor-independent?
+export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
+export XCURSOR_THEME=Posy_Cursor_Black
+export XCURSOR_SIZE=32
 
-###########################
-### Desktop Environments ###
-###########################
+# Qt Theming Variables
+QT_QPA_PLATFORM=wayland;xcb
+QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
+QT_STYLE_OVERRIDE=kvantum
+QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
-# Deprecated, simpler but less powerful setup for launching compositors
-# # Make sure we're on the login shell and not ver ssh
-# if [ -n "$(echo $0 | sed -n '/^-/p')" ] \
-#   && [ -z "$(env | grep SSH_CONNECTION)" ] \
-#   && [ $(tty | grep tty1) ]; then
-#     Hyprland
-# fi
+# nvidia enablers
+LIBVA_DRIVER_NAME=nvidia
+__GLX_VENDOR_LIBRARY_NAME=nvidia
 
-# uwsm check may-start auto checks
-# if tty1 && @ graphical.target && ! @ graphical-session.target
-if uwsm check may-start && uwsm select; then
-    exec systemd-cat -t uwsm_start uwsm start default
-fi
+# Fix electron apps... or at least try to
+ELECTRON_OZONE_PLATFORM_HINT=auto
+

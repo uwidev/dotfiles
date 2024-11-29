@@ -1,0 +1,5 @@
+# Themeing
+# Cursor
+export HYPRCURSOR_THEME=Posy_Cursor_Black_h
+export HYPRCURSOR_SIZE=32
+
