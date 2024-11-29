@@ -102,7 +102,12 @@ export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 # fi
 
 # uwsm check may-start auto checks
-# if tty1 && @ graphical.target && ! @ graphical-session.target
-if uwsm check may-start && uwsm select; then
-    exec systemd-cat -t uwsm_start uwsm start default
+# Allows for selection of compositor
+# if uwsm check may-start && uwsm select; then
+#     exec systemd-cat -t uwsm_start uwsm start default
+# fi
+
+# Faster variant, cannot drop to tty
+if uwsm check may-start; then
+    exec uwsm start hyprland.desktop
 fi
