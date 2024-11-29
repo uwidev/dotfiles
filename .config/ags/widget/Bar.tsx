@@ -22,10 +22,10 @@ function SysTray() {
                 tooltipMarkup={bind(item, "tooltipMarkup")}
                 onDestroy={() => menu?.destroy()}
                 onClickRelease={(self, event) => {
-                    if (event.button == 1){
+                    if (event.button == 1) {
                         item.activate(0, 0)
                     }
-                    else if (event.button == 3){
+                    else if (event.button == 3) {
                         menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
                     }
                 }}>
@@ -156,18 +156,18 @@ export default function Bar(monitor: Gdk.Monitor) {
         gdkmonitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         anchor={anchor} >
-            <centerbox>
-                <box hexpand halign={Gtk.Align.START}>
-                    <Workspaces monitor={monitor.get_model()} />
-                </box>
-                <box>
-                    <FocusedClient />
-                </box>
-                <box hexpand halign={Gtk.Align.END} className="Right" spacing={4} >
-                    <AudioSlider />
-                    <Time />
-                    <SysTray />
-                </box>
-            </centerbox>
+        <centerbox>
+            <box hexpand halign={Gtk.Align.START}>
+                <Workspaces monitor={monitor.get_model()} />
+            </box>
+            <box>
+                <FocusedClient />
+            </box>
+            <box hexpand halign={Gtk.Align.END} className="Right" spacing={4} >
+                <AudioSlider />
+                <Time />
+                <SysTray />
+            </box>
+        </centerbox>
     </window>
 }
