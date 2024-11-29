@@ -60,7 +60,7 @@ hyprctl reload config-only & # hyprland (formal)
 #fi
 
 ~/.local/lib/mywal/apply-vim &
-~/.local/lib/mywal/apply-kvantum-gradience -s > /dev/null 2>&1 # qt AND gtmk through eylles's pywal16-libadwaita
+~/.local/lib/mywal/apply-kvantum-gradience -s >/dev/null 2>&1 # qt AND gtmk through eylles's pywal16-libadwaita
 xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources &
 ~/.config/mako/sync-mako & # mako
 # ~/.local/src/pywal-obsidianmd/pywal-obsidianmd.sh '/mnt/storage/Projects/00 Critical/00 In Progress/vault'
@@ -72,6 +72,9 @@ xrdb -merge "$XDG_CONFIG_HOME"/X11/Xresources &
 # waybar > /dev/null &
 # fi
 
+# oomox is SPECIFICALLY to create icons.
+# GTK and QT are handled through pywal16-libadwaita, which unifies the
+# under pywal templates
 # oomox-cli /opt/oomox/scripted_colors/xresources/xresources-reverse	# gtk through oomox-cli, doesn't do icons
 #oomox-archdroid-icons-cli -d "$XDG_DATA_HOME"/icons/oomox-xresources-reverse-flat /opt/oomox/scripted_colors/xresources/xresources-reverse	# icons, rebuilt by oomox
 
