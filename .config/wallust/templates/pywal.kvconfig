@@ -78,12 +78,12 @@ tooltip_blur_radius=0
 [GeneralColors]
 window.color={{color0}}
 base.color={{color0}}
-alt.base.color=#{{color8 | lighten(0.1)}}
+alt.base.color={{color8 | lighten(0.1)}}
 button.color={{color12}}
-light.color=#{{color8 | darken(0.03)}}
-mid.light.color=#{{color8 | darken(0.05)}}
-dark.color=#{{color0 | lighten(0.02)}}
-mid.color=#{{color0 | lighten(0.03)}}
+light.color={{color8 | darken(0.03)}}
+mid.light.color={{color8 | darken(0.05)}}
+dark.color={{color0 | lighten(0.02)}}
+mid.color={{color0 | lighten(0.03)}}
 highlight.color={{color12}}
 inactive.highlight.color={{color12}}
 text.color={{color15}}
