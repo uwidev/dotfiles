@@ -1,0 +1,27 @@
+# literal test for learning
+pkgname=syne-fonts
+pkgver=1.0.0
+pkgrel=1
+_commit="54fb97bd69162b95b2aa2c3996ffd71466c1aec2" # latest commit touching Syne
+pkgdesc="Syne Font Family, including sans-serif, monospace, and tactile."
+arch=('any')
+url="https://fonts.google.com/specimen/Syne"
+license=('OFL')
+source=(
+	"LICENSE::https://raw.githubusercontent.com/google/fonts/$_commit/ofl/syne/OFL.txt"
+	"Syne.ttf::https://github.com/google/fonts/raw/$_commit/ofl/syne/Syne%5Bwght%5D.ttf"
+	"SyneMono.ttf::https://github.com/google/fonts/raw/$_commit/ofl/synemono/SyneMono-Regular.ttf"
+	"SyneTactile.ttf::https://github.com/google/fonts/raw/$_commit/ofl/synetactile/SyneTactile-Regular.ttf"
+)
+sha256sums=(
+	"cc43cdce6f91c57989af8459341c276655e34224e954fa69c2ad700831a742d8"
+	"ce5ac77142a65cab2248a1a2ebb740b1d4d9c20b52488877d3ff664d1356104a"
+	"b142b088680791725849cc74c54d7937c981de2378583bde72f826bd3eb267dc"
+	"d47ec3693a8f7a7fdf72cdee0e45c8fa0e08bc0b41ba41b8cf31509065ff0620"
+)
+
+package() {
+	install -d "$pkgdir/usr/share/fonts/TTF"
+	install -m644 "$srcdir/"*ttf "$pkgdir/usr/share/fonts/TTF"
+	install -m644 "$srcdir/LICENSE" "$pkgdir/usr/share/fonts/TTF"
+}
