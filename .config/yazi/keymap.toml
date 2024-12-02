@@ -1,0 +1,124 @@
+[[manager.prepend_keymap]]
+on = ["C"]
+run = "plugin ouch --args=zip"
+desc = "Compress with ouch"
+
+[[manager.prepend_keymap]]
+on = ["E"]
+run = "plugin eza-preview"
+desc = "Toggle tree/list dir preview"
+
+# [[manager.prepend_keymap]]
+# on = ["C"]
+# run = "plugin ouch --args=zip"
+# desc = "Compress with ouch"
+#
+# [[manager.prepend_keymap]]
+# on = ["C"]
+# run = "plugin ouch --args=zip"
+# desc = "Compress with ouch"
+#
+# [[manager.prepend_keymap]]
+# on = ["C"]
+# run = "plugin ouch --args=zip"
+# desc = "Compress with ouch"
+#
+# [[manager.prepend_keymap]]
+# on = ["C"]
+# run = "plugin ouch --args=zip"
+# desc = "Compress with ouch"
+
+# relative-motions mimic vim
+[[manager.prepend_keymap]]
+on = ["1"]
+run = "plugin relative-motions --args=1"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["2"]
+run = "plugin relative-motions --args=2"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["3"]
+run = "plugin relative-motions --args=3"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["4"]
+run = "plugin relative-motions --args=4"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["5"]
+run = "plugin relative-motions --args=5"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["6"]
+run = "plugin relative-motions --args=6"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["7"]
+run = "plugin relative-motions --args=7"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["8"]
+run = "plugin relative-motions --args=8"
+desc = "Move in relative steps"
+
+[[manager.prepend_keymap]]
+on = ["9"]
+run = "plugin relative-motions --args=9"
+desc = "Move in relative steps"
+
+# vim f function, but no F, rather have filter?
+# [[manager.prepend_keymap]]
+# on = "f"
+# run = "plugin jump-to-char"
+# desc = "Jump to char"
+
+# marks for jumping
+[[manager.prepend_keymap]]
+on = ["m"]
+run = "plugin bookmarks --args=save"
+desc = "Save current position as a bookmark"
+
+[[manager.prepend_keymap]]
+on = ["'"]
+run = "plugin bookmarks --args=jump"
+desc = "Jump to a bookmark"
+
+[[manager.prepend_keymap]]
+on = ["b", "d"]
+run = "plugin bookmarks --args=delete"
+desc = "Delete a bookmark"
+
+[[manager.prepend_keymap]]
+on = ["b", "D"]
+run = "plugin bookmarks --args=delete_all"
+desc = "Delete all bookmarks"
+
+[[manager.prepend_keymap]]
+on = ["c", "m"]
+run = "plugin chmod"
+desc = "Chmod on selected files"
+
+# undo on deleted items
+[[manager.prepend_keymap]]
+on = ["u"]
+run = "plugin restore"
+desc = "Restore last deleted files/folders"
+
+# copy text contents
+[[manager.prepend_keymap]]
+on = "<A-y>"
+run = ["plugin copy-file-contents"]
+desc = "Copy contents of file"
+
+# ripdrag
+[[manager.prepend_keymap]]
+on = "<C-n>"
+run = '''shell 'ripdrag -i -s 124 -W 128 -H 128 -a "$@" -x 2>/dev/null &' --confirm'''
