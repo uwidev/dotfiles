@@ -1,5 +1,8 @@
 #!/bin/env python
-"""Manager for wallust, picking a file, and applying theme updates."""
+"""Manager for wallust, picking a file, and applying theme updates.
+
+Hyprpaper requires
+"""
 
 import subprocess
 import os
@@ -17,7 +20,6 @@ args = parser.parse_args()
 
 wal_current_img = Path("~/.cache/wal/wal").expanduser()
 dir_default_imgs = Path("~/images/wal").expanduser()
-monitors = ["HDMI-A-1", "DP-3"]
 
 lib_dir = Path(__file__).resolve().parent
 
@@ -61,13 +63,21 @@ def apply_wallust(img_path: str):
 def apply_paper(img_path: str):
 	# set wallpaper to all monitors
 	# in the future, preload a window of files that we plant o scroll on
+	monitors = subprocess.run(
+		"hyprctl monitors | grep Monitor | cut -d' ' -f2",
+		shell=True,
+		capture_output=True,
+		text=True,
+	).stdout.split()
+
 	cmd_paper_unload_all = "hyprctl hyprpaper unload all"
 	cmd_paper_pre = 'hyprctl hyprpaper preload "{}"'
 	cmd_paper_set = 'hyprctl hyprpaper wallpaper "{},{}"'
 
 	subprocess.run(cmd_paper_unload_all, shell=True)
+	subprocess.run(cmd_paper_pre.format(img_path), shell=True)
+
 	for m in monitors:
-		subprocess.run(cmd_paper_pre.format(img_path), shell=True)
 		subprocess.run(cmd_paper_set.format(m, img_path), shell=True)
 
 
