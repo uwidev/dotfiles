@@ -1,85 +1,87 @@
-# https://www.youtube.com/watch?v=9U8LCjuQzdc
-
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
+
+[secondary_prompt]
+template = '󰼛󰼛 '
+foreground = 'magenta'
+
+[transient_prompt]
+template = '{{ if gt .Code 0 }}󰐊{{ else }}󰼛{{ end }} '
+background = 'transparent'
+foreground_templates = [
+  '{{if gt .Code 0}}red{{end}}',
+  '{{if eq .Code 0}}magenta{{end}}',
+]
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
-  newline = true
+type = 'prompt'
+alignment = 'left'
+newline = true
 
-  [[blocks.segments]]
-    type = 'path'
-    style = 'plain'
-    foreground = 'blue'
-    template = '{{ .Path }}'
+[[blocks.segments]]
+template = '{{ .Path }}'
+foreground = 'blue'
+type = 'path'
+style = 'plain'
 
-    [blocks.segments.properties]
-      style = 'full'
-      # home_icon = '/home/Timmy'
+[blocks.segments.properties]
+cache_duration = 'none'
+style = 'full'
 
-  [[blocks.segments]]
-    type = 'git'
-    style = 'plain'
-    foreground = 'green'
-    template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+[[blocks.segments]]
+template = ' <b>{{ .HEAD }}</b>{{ if or (.Working.Changed) (.Staging.Changed) }}<b>*</b>{{ end }} <cyan>{{ if gt .Behind 0 }}<f>⇣</f>{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}'
+foreground = 'green'
+type = 'git'
+style = 'plain'
 
-    [blocks.segments.properties]
-      branch_icon = ''
-      commit_icon = '@'
-      fetch_status = true
-
+[blocks.segments.properties]
+branch_icon = ' '
+cache_duration = 'none'
+commit_icon = '@'
+fetch_status = true
 
 [[blocks]]
 type = 'prompt'
 alignment = 'right'
 
-  [[blocks.segments]]
-    type = 'python'
-    style = 'plain'
-    template = ' {{ .Full }}'
-    foreground = 'magenta'
+[[blocks.segments]]
+template = '󰌠 {{ .Full }}'
+foreground = 'magenta'
+type = 'python'
+style = 'plain'
 
-
-[[blocks]]
-  type = 'rprompt'
-  overflow = 'hidden'
-
-  [[blocks.segments]]
-    type = 'executiontime'
-    style = 'plain'
-    foreground = 'yellow'
-    template = '{{ .FormattedMs }}'
-
-    [blocks.segments.properties]
-      threshold = 5000
+[blocks.segments.properties]
+cache_duration = 'none'
 
 [[blocks]]
-  type = 'prompt'
-  alignment = 'left'
-  newline = true
+type = 'rprompt'
+overflow = 'hidden'
 
-  [[blocks.segments]]
-    type = 'text'
-    style = 'plain'
-    foreground_templates = [
-      "{{if gt .Code 0}}red{{end}}",
-      "{{if eq .Code 0}}magenta{{end}}",
-    ]
-    background = 'transparent'
-    template = ''
+[[blocks.segments]]
+template = '{{ .FormattedMs }}'
+foreground = 'yellow'
+type = 'executiontime'
+style = 'plain'
 
-[transient_prompt]
-  foreground_templates = [
-    "{{if gt .Code 0}}red{{end}}",
-    "{{if eq .Code 0}}magenta{{end}}",
-  ]
-  background = 'transparent'
-  template = ' '
+[blocks.segments.properties]
+cache_duration = 'none'
+threshold = 5000
 
-[secondary_prompt]
-  foreground = 'magenta'
-  template = ' '
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = true
+
+[[blocks.segments]]
+template = '{{ if gt .Code 0 }}󰐊{{ else }}󰼛{{ end }}'
+background = 'transparent'
+type = 'text'
+style = 'plain'
+foreground_templates = [
+  '{{ if gt .Code 0 }}red{{ end }}',
+  '{{ if eq .Code 0 }}magenta{{ end }}',
+]
+
+[blocks.segments.properties]
+cache_duration = 'none'
