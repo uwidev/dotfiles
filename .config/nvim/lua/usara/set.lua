@@ -31,7 +31,7 @@ vim.opt.showmode = false
 -- Word wrap adjustment
 -- vim.opt.wrap = true
 vim.opt.breakindent = true
-vim.opt.showbreak = '󱞵 '
+vim.opt.showbreak = '󱞩 '
 vim.opt.breakindentopt = 'min:40,sbr'
 
 -- Better history management and concurrent editing
