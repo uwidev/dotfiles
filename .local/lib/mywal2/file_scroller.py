@@ -1,5 +1,9 @@
 #!/bin/env python
-"""Utility to get some next/prev file from a directory given a ref file."""
+"""Utility to get some file from a directory given a ref file.
+
+implemented: current, next, prev
+maybe: window from current, all
+"""
 
 from pathlib import Path
 import argparse
@@ -18,22 +22,8 @@ args = parser.parse_args()
 
 def get_file(dir: Path, ref: Path, action: str):
 	"""Get the next/prev file from a directory."""
-	if action not in choices:
-		msg = f"action {action} must one of the following {choices}"
-		raise ValueError(msg)
-
-	if not dir.is_dir():
-		msg = f"Path {dir} must be a path to a directory."
-		raise NotADirectoryError(msg)
-
 	files = sorted([f for f in dir.iterdir() if f.is_file()])
 
-	# # If a file does not exist, just return the first file from path.
-	# if not ref.is_file():
-	# 	msg = f"Reference file {ref} is not a file."
-	# 	raise IsADirectoryError(msg)
-
-	action = args.action
 	if ref not in files:
 		return files[0]
 
@@ -49,6 +39,19 @@ if __name__ == "__main__":
 	dir: Path = args.path.resolve()
 	ref: Path = args.reference.resolve()
 	action: str = args.action
+
+	if action not in choices:
+		msg = f"action {action} must one of the following {choices}"
+		raise ValueError(msg)
+
+	if not dir.is_dir():
+		msg = f"Path {dir} must be a path to a directory."
+		raise NotADirectoryError(msg)
+
+	# # If a file does not exist, just return the first file from path.
+	# if not ref.is_file():
+	# 	msg = f"Reference file {ref} is not a file."
+	# 	raise IsADirectoryError(msg)
 
 	file = get_file(dir, ref, action)
 	print(file)
