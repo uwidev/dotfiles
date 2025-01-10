@@ -7,6 +7,8 @@
 # ~/.config/uwsm/env-${desktop}. This is because Wayland compositor sessions are
 # managed via universal wayland session manager (uwsm), and does not inherit
 # variables defined here.
+#
+# ENVARS DEFINED HERE DO NOT PERSIST TO SYSTEMD-WRAPPED COMPOSITORS!!!
 
 # Safe PATH operations
 source ~/.env_functions
@@ -21,7 +23,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
 # Safely export XDG user dirs from user config
-cat ~/.config/user-dirs.dirs |
+cat $HOME/.config/user-dirs.dirs |
 sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
 while IFS='\n' read -r line; do
     eval "export $line";
@@ -48,21 +50,20 @@ export PYTHONSTARTUP="$HOME"/python/pythonrc
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # END xdg-ninja
 
-
 export EDITOR=nvim
-export HYPRLAND_NO_SD_NOTIFY=1
+# export HYPRLAND_NO_SD_NOTIFY=1
 
-# For Firefox Nvidia VA-API Hardware Acceleration
-# See https://wiki.hyprland.org/Nvidia/#va-api-hardware-video-acceleration
-export MOZ_DISABLE_RDD_SANDBOX=1
-export LIBVA_DRIVER_NAME=nvidia
-export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+# # For Firefox Nvidia VA-API Hardware Acceleration
+# # See https://wiki.hyprland.org/Nvidia/#va-api-hardware-video-acceleration
+# export MOZ_DISABLE_RDD_SANDBOX=1
+# export LIBVA_DRIVER_NAME=nvidia
+# export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 #export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Vulkan use nvidia
 # See https://wiki.archlinux.org/title/Vulkan#NVIDIA_-_vulkan_is_not_working_and_can_not_initialize
-export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
 ################
 ### Sourcing ###
@@ -82,12 +83,45 @@ eval "$(pyenv init -)"
 # export NVD_BACKEND=direct
 # export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
-# Cool sudo colers
-export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
-
-# Docker
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
+# #####################
+# # From Hyprland env #
+# #####################
+#
+# # XCursor fallback if app doesn't support server-side cursors
+# export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
+# export XCURSOR_THEME=Posy_Cursor_Black
+# export XCURSOR_SIZE=32
+#
+# # Qt Theming Variables
+# export QT_QPA_PLATFORM="wayland;xcb"
+# export QT_QPA_PLATFORMTHEME=qt6ct
+# export QT_STYLE_OVERRIDE=kvantum
+# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+#
+# # QT_AUTO_SCREEN_SCALE_FACTOR=1
+# # QT_ENABLE_HIGHDPI_SCALING=1
+#
+# # Fixes
+# # Fix gamma correction for Electron applications
+# # See https://wiki.archlinux.org/title/Font_configuration#Text_is_blurry
+# export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+#
+# # Force applications to use wayland
+# export GDB_BACKEND=wayland,x11,*
+# export SDL_VIDEODRIVER=wayland
+# export CLUTTER_BACKEND=wayland
+#
+# # nvidia enablers
+# LIBVA_DRIVER_NAME=nvidia
+# __GLX_VENDOR_LIBRARY_NAME=nvidia
+#
+# # Fix electron apps... or at least try to
+# ELECTRON_OZONE_PLATFORM_HINT=auto
+#
+# # Themeing
+# # Cursor
+# export HYPRCURSOR_THEME=Posys-Cursor-Scalable-Black
+# export HYPRCURSOR_SIZE=24
 
 ###########################
 ### Desktop Environments ###
@@ -101,8 +135,11 @@ export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
 #     Hyprland
 # fi
 
-# uwsm check may-start auto checks
-# Allows for selection of compositor
+# Place compositor into session.slice instead of default app.slice
+USWM_USER_SESSION_SLICE=true
+
+# # uwsm check may-start auto checks
+# # Allows for selection of compositor
 # if uwsm check may-start && uwsm select; then
 #     exec systemd-cat -t uwsm_start uwsm start default
 # fi
