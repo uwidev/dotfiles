@@ -6,7 +6,7 @@
 # These variables should be independent from the DE.
 
 # # Safe PATH operations
-# source ~/.env_functions
+source ~/.env_functions
 
 ##################
 ### Set envars ###
@@ -17,12 +17,21 @@ export XDG_CONFIG_HOME=$HOME/.config
 export XDG_STATE_HOME=$HOME/.local/state
 export XDG_CACHE_HOME=$HOME/.cache
 
-# # Safely export XDG user dirs from user config
-# cat ~/.config/user-dirs.dirs |
+# Safely export XDG user dirs from user config
+# cat $HOME/.config/user-dirs.dirs |
 # sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
 # while IFS='\n' read -r line; do
 #     eval "export $line";
 # done
+
+export XDG_DESKTOP_DIR="$HOME/in"
+export XDG_DOCUMENTS_DIR="$HOME/docs"
+export XDG_DOWNLOAD_DIR="$HOME/down"
+export XDG_MUSIC_DIR="$HOME/music"
+export XDG_PICTURES_DIR="$HOME/imgs"
+export XDG_PUBLICSHARE_DIR="$HOME/pub"
+export XDG_TEMPLATES_DIR="$HOME/templates"
+export XDG_VIDEOS_DIR="$HOME/vids"
 
 # Cleaning up home according to xdg-ninja
 # Enforce applications to use dirs defined in env vars not clutter home dir
@@ -55,7 +64,7 @@ export MOZ_DISABLE_RDD_SANDBOX=1
 export LIBVA_DRIVER_NAME=nvidia
 export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
-#export ELECTRON_OZONE_PLATFORM_HINT=auto
+export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Vulkan use nvidia
 # See https://wiki.archlinux.org/title/Vulkan#NVIDIA_-_vulkan_is_not_working_and_can_not_initialize
@@ -65,67 +74,59 @@ export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 ### Sourcing ###
 ################
 
+export PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 # pathprepend "$XDG_DATA_HOME"/cargo/bin
 # pathprepend ~/.local/bin
 
 # pyenv compatibility
 export PYENV_ROOT="$HOME/.pyenv"
+export path='$PYENV_ROOT/bin:$PATH'
+
 # [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init -)"
 
-# # Nvidia
-# export LIBVA_DRIVER_NAME=nvidia
-# export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
-# export __GLX_VENDOR_LIBRARY_NAME=nvidia
-# export NVD_BACKEND=direct
-# export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
-# Themeing (for wayland)
-# Cursor
-export HYPRCURSOR_THEME=Posy_Cursor_Black_h
-export HYPRCURSOR_SIZE=32
+# Nvidia
+export LIBVA_DRIVER_NAME=nvidia
+export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export NVD_BACKEND=direct
+export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
+
+# Cool sudo colers
+export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
+
+# Docker
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+#####################
+# From Hyprland env #
+#####################
 
 # XCursor fallback if app doesn't support server-side cursors
 export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
 export XCURSOR_THEME=Posy_Cursor_Black
 export XCURSOR_SIZE=32
 
-# # Qt Theming Variables
-# export QT_QPA_PLATFORM="wayland;xcb"
-# export QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
-# export QT_STYLE_OVERRIDE=kvantum
-# export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+# Qt Theming Variables
+export QT_QPA_PLATFORM="wayland;xcb"
+export QT_QPA_PLATFORMTHEME=qt6ct
+export QT_STYLE_OVERRIDE=kvantum
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
-#QT_AUTO_SCREEN_SCALE_FACTOR=1
-#QT_ENABLE_HIGHDPI_SCALING=1
-
-# Cool sudo colers
-export SUDO_PROMPT="$(tput setab 1 setaf 7 bold)[sudo]$(tput sgr0) $(tput setaf 6)password for$(tput sgr0) $(tput setaf 5)%p$(tput sgr0): "
-
+# QT_AUTO_SCREEN_SCALE_FACTOR=1
+# QT_ENABLE_HIGHDPI_SCALING=1
 
 # Fixes
 # Fix gamma correction for Electron applications
 # See https://wiki.archlinux.org/title/Font_configuration#Text_is_blurry
-# export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
+export FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"
 
 # Force applications to use wayland
 export GDB_BACKEND=wayland,x11,*
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKEND=wayland
-
-# Docker
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
-
-# Compositor-independent?
-export XCURSOR_PATH=~/.local/share/icons:/usr/share/icons
-export XCURSOR_THEME=Posy_Cursor_Black
-export XCURSOR_SIZE=32
-
-# Qt Theming Variables
-QT_QPA_PLATFORM=wayland;xcb
-QT_QPA_PLATFORMTHEME=qt6ct:qt5ct
-QT_STYLE_OVERRIDE=kvantum
-QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 
 # nvidia enablers
 LIBVA_DRIVER_NAME=nvidia
@@ -134,3 +135,5 @@ __GLX_VENDOR_LIBRARY_NAME=nvidia
 # Fix electron apps... or at least try to
 ELECTRON_OZONE_PLATFORM_HINT=auto
 
+# Fix Orcaslicer
+export WEBKIT_DISABLE_COMPOSITING_MODE=1

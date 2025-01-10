@@ -1,5 +1,5 @@
 # Themeing
 # Cursor
-export HYPRCURSOR_THEME=Posy_Cursor_Black_h
-export HYPRCURSOR_SIZE=32
+export HYPRCURSOR_THEME=Posys-Cursor-Scalable-Black
+export HYPRCURSOR_SIZE=24
 
