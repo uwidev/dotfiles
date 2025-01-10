@@ -8,30 +8,46 @@ import Wp from "gi://AstalWp"
 import Network from "gi://AstalNetwork"
 import Tray from "gi://AstalTray"
 
+// function SysTray() {
+//     const tray = Tray.get_default()
+//
+//     return <box className="SysTray" spacing={4} >
+//         {bind(tray, "items").as(items => items.map(item => {
+//             if (item.iconThemePath)
+//                 App.add_icons(item.iconThemePath)
+//
+//             const menu = item.create_menu()
+//
+//             return <button
+//                 tooltipMarkup={bind(item, "tooltipMarkup")}
+//                 onDestroy={() => menu?.destroy()}
+//                 onClickRelease={(self, event) => {
+//                     if (event.button == 1) {
+//                         item.activate(0, 0)
+//                     }
+//                     else if (event.button == 3) {
+//                         menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
+//                     }
+//                 }}>
+//                 <icon gIcon={bind(item, "gicon")} />
+//             </button>
+//         }))}
+//     </box>
+// }
+
 function SysTray() {
     const tray = Tray.get_default()
 
-    return <box className="SysTray" spacing={4} >
-        {bind(tray, "items").as(items => items.map(item => {
-            if (item.iconThemePath)
-                App.add_icons(item.iconThemePath)
-
-            const menu = item.create_menu()
-
-            return <button
+    return <box className="SysTray">
+        {bind(tray, "items").as(items => items.map(item => (
+            <menubutton
                 tooltipMarkup={bind(item, "tooltipMarkup")}
-                onDestroy={() => menu?.destroy()}
-                onClickRelease={(self, event) => {
-                    if (event.button == 1) {
-                        item.activate(0, 0)
-                    }
-                    else if (event.button == 3) {
-                        menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null)
-                    }
-                }}>
-                <icon gIcon={bind(item, "gicon")} />
-            </button>
-        }))}
+                usePopover={false}
+                actionGroup={bind(item, "action-group").as(ag => ["dbusmenu", ag])}
+                menuModel={bind(item, "menu-model")}>
+                <icon gicon={bind(item, "gicon")} />
+            </menubutton>
+        )))}
     </box>
 }
 
