@@ -57,6 +57,7 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light z-shell/zsh-eza
 
 # Add in snippets
 zinit snippet OMZP::git
@@ -187,8 +188,9 @@ alias trash-restore="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut 
 alias trash-empty="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy empty --match=exact --force"
 
 # better folder navigation
-alias ls='ls --color'
-alias l='ls -Alh'
+
+# alias ls='ls --color'
+# alias l='ls -Alh'
 
 alias ..='cd ..'
 alias ...='cd ../..'
