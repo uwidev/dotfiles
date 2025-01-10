@@ -14,11 +14,20 @@ return { -- neorg support, better notes
 								undone = {
 									icon = ' ',
 								},
-								done = {
-									icon = 'x',
-								},
 								pending = {
-									icon = '-',
+									icon = '',
+								},
+								recurring = {
+									icon = '',
+								},
+								cancelled = {
+									icon = '',
+								},
+								on_hold = {
+									icon = '󰏤',
+								},
+								urgent = {
+									icon = '',
 								},
 							},
 						},
@@ -36,7 +45,8 @@ return { -- neorg support, better notes
 				['core.dirman'] = {
 					config = {
 						workspaces = {
-							notes = '~/notes',
+							notes = '~/docs/notes',
+							journal = '~/docs/notes/journal',
 						},
 					},
 				},
