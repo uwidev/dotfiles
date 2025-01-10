@@ -1,36 +1,35 @@
 [manager]
-sort_by = "modified"
+sort_by = "mtime"
 sort_reverse = true
-
 
 [[plugin.prepend_previewers]]
 name = "*.md"
 run = "glow"
 
-# [[plugin.prepend_previewers]]
-# mime = "application/*zip"
-# run = "ouch"
-#
-# [[plugin.prepend_previewers]]
-# mime = "application/x-tar"
-# run = "ouch"
-#
-# [[plugin.prepend_previewers]]
-# mime = "application/x-bzip2"
-# run = "ouch"
-#
-# [[plugin.prepend_previewers]]
-# mime = "application/x-7z-compressed"
-# run = "ouch"
-#
-# [[plugin.prepend_previewers]]
-# mime = "application/x-rar"
-# run = "ouch"
-#
-# [[plugin.prepend_previewers]]
-# mime = "application/x-xz"
-# run = "ouch"
-#
+[[plugin.prepend_previewers]]
+mime = "application/*zip"
+run = "ouch"
+
+[[plugin.prepend_previewers]]
+mime = "application/x-tar"
+run = "ouch"
+
+[[plugin.prepend_previewers]]
+mime = "application/x-bzip2"
+run = "ouch"
+
+[[plugin.prepend_previewers]]
+mime = "application/x-7z-compressed"
+run = "ouch"
+
+[[plugin.prepend_previewers]]
+mime = "application/x-rar"
+run = "ouch"
+
+[[plugin.prepend_previewers]]
+mime = "application/x-xz"
+run = "ouch"
+
 # [[plugin.prepend_previewers]]
 # name = "*/"
 # run = "eza-preview"

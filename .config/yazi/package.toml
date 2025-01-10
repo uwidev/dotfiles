@@ -1,9 +1,13 @@
 [plugin]
 deps = [
-	{ use = "Reledia/glow", rev = "388e847" },
-	{ use = "ndtoan96/ouch", rev = "db14883" },
-	{ use = "ahkohd/eza-preview", rev = "18e1637" },
-	{ use = "dedukun/relative-motions", rev = "=89d0cb9" }, { use = "yazi-rs/plugins:jump-to-char", rev = "a53d544" }, { use = "dedukun/bookmarks", rev = "600f87c" }, { use = "yazi-rs/plugins:chmod", rev = "a53d544" }, { use = "boydaihungst/restore", rev = "e9b6e8e" }, { use = "AnirudhG07/plugins-yazi:copy-file-contents", rev = "f871a9c" },
+	{ use = "ndtoan96/ouch", rev = "b869886" },
+	{ use = "ahkohd/eza-preview", rev = "5ef05bc" },
+	{ use = "yazi-rs/plugins:jump-to-char", rev = "600614a" },
+	{ use = "dedukun/bookmarks", rev = "5116df5" },
+	{ use = "yazi-rs/plugins:chmod", rev = "600614a" },
+	{ use = "boydaihungst/restore", rev = "ffc209e" },
+	{ use = "AnirudhG07/plugins-yazi:copy-file-contents", rev = "11167e1" },
+	{ use = "Reledia/glow", rev = "5ce76dc" },
 ]
 
 
