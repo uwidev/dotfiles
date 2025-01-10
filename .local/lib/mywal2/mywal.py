@@ -19,7 +19,7 @@ parser.add_argument("-r", "--reference", type=Path)
 args = parser.parse_args()
 
 wal_current_img = Path("~/.cache/wal/wal").expanduser()
-dir_default_imgs = Path("~/images/wal").expanduser()
+dir_default_imgs = Path("~/imgs/wal").expanduser()
 
 lib_dir = Path(__file__).resolve().parent
 
@@ -123,6 +123,10 @@ def apply_mako():
 def apply_fox():
 	# pywalfox
 	subprocess.Popen("pywalfox update", shell=True)
+
+
+def apply_discord():
+	subprocess.Popen(f"{lib_dir}/walcord", shell=True)
 
 
 def main():
