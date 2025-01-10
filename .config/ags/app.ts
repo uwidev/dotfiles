@@ -1,6 +1,10 @@
 import { App } from "astal/gtk3"
-import style from "./style.scss"
+import style from "./style/main.scss"
 import Bar from "./widget/Bar"
+
+import monitorStyle from "./cssHotLoad";
+
+monitorStyle;
 
 App.start({
     css: style,
