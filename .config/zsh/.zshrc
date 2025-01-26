@@ -183,9 +183,6 @@ function yy() {
 # dotfiles
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 
-# trashy aliases
-alias trash-restore="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy restore --match=exact --force"
-alias trash-empty="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy empty --match=exact --force"
 
 # better folder navigation
 
@@ -200,3 +197,15 @@ alias sys='systemctl'
 alias sysu='systemctl --user'
 alias ja='journalctl'
 alias jab='journalctl -b'
+
+# safe-rm
+alias rm='rm -i'
+
+# # trashy aliases
+# alias trash-restore="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy restore --match=exact --force"
+# alias trash-empty="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy empty --match=exact --force"
+
+# conceal to trash
+# alias trash='conceal'
+
+# alias trash-restore='echo 0 | trash-restore $(trash-list | grep $(pwd) --color=never | sed "s/^[^/]*//" | fzf) > /dev/null'

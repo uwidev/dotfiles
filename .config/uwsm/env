@@ -43,6 +43,7 @@ export X_CURSOR_PATH=/usr/share/icons:"$XDG_DATA_HOME"/icons
 export LESSHISTFILE="$XDG_STATE_HOME"/less/history
 export ZSH="$XDG_DATA_HOME"/oh-my-zsh
 export NPM_USER_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
+export npm_config_prefix="$HOME/.local"
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export CUDA_CACHE_PATH="$XDG_DATA_HOME"/nv
 export DOTNET_CLI_HOME="XDG_DATA_HOME"/dotnet
@@ -76,8 +77,6 @@ export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 
 export PATH="$XDG_DATA_HOME/cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-# pathprepend "$XDG_DATA_HOME"/cargo/bin
-# pathprepend ~/.local/bin
 
 # pyenv compatibility
 export PYENV_ROOT="$HOME/.pyenv"

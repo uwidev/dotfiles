@@ -12,7 +12,7 @@ return { -- LSP Configuration & Plugins
 
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
-		{ 'folke/neodev.nvim', opts = {} },
+		-- { 'folke/neodev.nvim', opts = {} },
 	},
 	config = function()
 		-- If you're wondering about lsp vs treesitter, you can check out the wonderfully
@@ -126,7 +126,8 @@ return { -- LSP Configuration & Plugins
 		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
 		--  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+		-- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+		capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -153,10 +154,6 @@ return { -- LSP Configuration & Plugins
 				-- python
 				ruff = {
 					-- autostart = false,
-					settings = {
-						-- args = { '--config=./pyproject.toml' },
-						-- logLevel = 'debug,',
-					},
 				},
 				jedi_language_server = {
 					autostart = false,
@@ -258,6 +255,7 @@ return { -- LSP Configuration & Plugins
 						},
 					},
 				},
+
 				typos_lsp = {
 					-- autostart = false,
 					-- Logging level of the language server. Logs appear in :LspLog. Defaults to error.
@@ -271,6 +269,12 @@ return { -- LSP Configuration & Plugins
 						diagnosticSeverity = 'Error',
 					},
 				},
+
+				-- toml
+				taplo = {},
+
+				-- C
+				clangd = {},
 			},
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
@@ -287,70 +291,31 @@ return { -- LSP Configuration & Plugins
 			'stylua', -- Used to format Lua code
 			'shellcheck',
 			'shfmt',
+			'clang-format',
 		})
 		require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
 		require('mason-lspconfig').setup {
+			---@type string[]
+			ensure_installed = {},
+
+			---@type boolean
+			automatic_installation = false,
+
+			---@type table<string, fun(server_name:string)>?
 			handlers = {
 				function(server_name)
-					-- Temporary patch while we wait for Mason to update for ts_ls
-					-- https://github.com/williamboman/mason-lspconfig.nvim/issues/458
 					local server = servers[server_name] or {}
+
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-					-- if server_name == 'textlsp' then
-					--   local inspect = require 'inspect'
-					--   print(inspect(server))
-					-- end
+
+					-- Extend the server's capabilities with blink.bmp
 					require('lspconfig')[server_name].setup(server)
 				end,
 			},
 		}
-		-- vim.lsp.set_log_level 'debug',
-		-- require('lspconfig').anakin_language_server.setup {}
-		-- require('lspconfig').textlsp.setup {
-		--   settings = {
-		--     textLSP = {
-		--       analysers = {
-		--         languagetool = {
-		--           enabled = false,
-		--         },
-		--         ollama = {
-		--           enabled = true,
-		--           check_text = {
-		--             on_open = false,
-		--             on_save = true,
-		--             on_change = false,
-		--           },
-		--           model = 'phi3:3.8b-instruct', -- smaller but faster model
-		--           -- model = "phi3:14b-instruct",  -- more accurate
-		--           max_token = 50,
-		--         },
-		--       },
-		--     },
-		--   },
-		-- }
 	end,
 }
-
--- return {
---   'neovim/nvim-lspconfig',
---   dependencies = {
---     -- Automatically install LSPs and related tools to stdpath for Neovim
---     { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
---     'williamboman/mason-lspconfig.nvim',
---     'WhoIsSethDaniel/mason-tool-installer.nvim',
---
---     -- Useful status updates for LSP.
---     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
---     { 'j-hui/fidget.nvim', opts = {} },
---
---     -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
---     -- used for completion, annotations and signatures of Neovim apis
---   },
---   config = function()
---     require('lspconfig').textlsp.setup {}
---   end,
--- }

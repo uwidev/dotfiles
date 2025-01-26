@@ -83,3 +83,11 @@ vim.opt.scrolloff = 10
 for i = 0, 15 do
 	vim.api.nvim_set_hl(0, string.format('DevColor%d', i), {})
 end
+
+-- Enable folding
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldtext = ''
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 1
+vim.opt.foldnestmax = 4

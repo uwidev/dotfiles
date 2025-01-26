@@ -1,0 +1,31 @@
+{
+  "hydrusApiUrl": "http://localhost:45869",
+  "hydrusApiKey": "e4e93da5dd3f7011c1045c6aa01347b9fbd8c3d2ee6adb32d9826d561544521c",
+  "archivesDirectory": "/home/timmy/in/hyextract_archives",
+  "tempDirectory": "/tmp/hyextract",
+  "copyTags": true,
+  "copyUrls": true,
+  "tagServices": [
+    "downloader tags"
+  ],
+  "passwordNamespace": "password",
+  "passwordHexNamespace": "password hex",
+  "tagBlacklist": [],
+  "namespaceBlacklist": [
+    "filename",
+    "password",
+    "password hex"
+  ],
+  "tagFilenames": true,
+  "filenameTagService": "downloader tags",
+  "deleteOriginalArchiveFromDirectory": false,
+  "deleteOriginalArchiveFromHydrus": false,
+  "deleteTempFiles": true,
+  "customServicesToTags": {
+    "my tags": [
+      "hyextract"
+    ]
+  },
+  "moveUnimportedFiles": true,
+  "unimportedFilesDirectory": "/home/timmy/in/hyextract_unimported"
+}

@@ -51,6 +51,8 @@ vim.keymap.set('n', '<C-j>', '<cmd>cnext<CR>zz')
 vim.keymap.set('n', '<C-k>', '<cmd>cprev<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>k', '<cmd>lprev<CR>zz')
+vim.keymap.set('n', '<M-j>', '<cmd>bn<CR>zz')
+vim.keymap.set('n', '<M-k>', '<cmd>bp<CR>zz')
 
 vim.keymap.set('n', '<leader>sS', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[s]earch and [S]ubstitute under cursor' })
 vim.keymap.set({ 'v' }, '<leader>s', [[y|:%s/<C-r>"/<C-r>"/gI<Left><Left><Left>]], { desc = '[s]earch and sbstitute (v)isual' })
@@ -101,4 +103,26 @@ vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [d]i
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Geometric incrementing
-vim.keymap.set('v', 'gA', [[:s/\d\+/\=submatch(0) * /gI<Left><Left><Left>]], { desc = 'Increment visual block geometrically' })
+-- vim.keymap.set('v', 'gA', [[:s/\d\+/\=submatch(0) * /gI<Left><Left><Left>]], { desc = 'Increment visual block geometrically' })
+
+-- https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#command-to-toggle-format-on-save
+vim.api.nvim_create_user_command('FormatDisable', function(args)
+	if args.bang then
+		-- FormatDisable! will disable formatting just for this buffer
+		vim.b.disable_autoformat = true
+	else
+		vim.g.disable_autoformat = true
+	end
+end, {
+	desc = 'Disable autoformat-on-save',
+	bang = true,
+})
+vim.api.nvim_create_user_command('FormatEnable', function()
+	vim.b.disable_autoformat = false
+	vim.g.disable_autoformat = false
+end, {
+	desc = 'Re-enable autoformat-on-save',
+})
+
+-- helpful
+vim.keymap.set('n', '<leader>fn', ':%s/\\\\n/\\r/g<cr>', { desc = 'format [n]ew lines' })

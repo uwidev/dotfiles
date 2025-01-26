@@ -1,7 +1,7 @@
 [[manager.prepend_keymap]]
 on = ["C"]
 run = "plugin ouch --args=zip"
-desc = "Compress with ouch"
+desc = "[C]ompress with ouch"
 
 [[manager.prepend_keymap]]
 on = ["E"]
@@ -134,43 +134,67 @@ desc = "Toggle tree/list dir preview"
 
 # marks for jumping
 [[manager.prepend_keymap]]
-on = ["m"]
+on = ["<S-m>"]
 run = "plugin bookmarks --args=save"
-desc = "Save current position as a bookmark"
+desc = "[m]ark to key"
 
 [[manager.prepend_keymap]]
 on = ["'"]
 run = "plugin bookmarks --args=jump"
-desc = "Jump to a bookmark"
+desc = "jump to mark"
 
 [[manager.prepend_keymap]]
 on = ["b", "d"]
 run = "plugin bookmarks --args=delete"
-desc = "Delete a bookmark"
+desc = "[b]ookmark [d]elete"
 
 [[manager.prepend_keymap]]
 on = ["b", "D"]
 run = "plugin bookmarks --args=delete_all"
-desc = "Delete all bookmarks"
+desc = "[b]ookmark [D]elete ALL"
 
 [[manager.prepend_keymap]]
 on = ["c", "m"]
 run = "plugin chmod"
-desc = "Chmod on selected files"
+desc = "[c]h[m]od files"
 
 # undo on deleted items
 [[manager.prepend_keymap]]
-on = ["u"]
+on = ["d", "u"]
 run = "plugin restore"
-desc = "Restore last deleted files/folders"
+desc = "[d]elete [u]ndo"
 
-# copy text contents
 [[manager.prepend_keymap]]
-on = "<A-y>"
-run = ["plugin copy-file-contents"]
-desc = "Copy contents of file"
+on = ["d", "d"]
+run = "remove"
+desc = "[d]o [d]elete"
+
+[[manager.prepend_keymap]]
+on = ["d", "D"]
+run = "remove --permanently"
+desc = "[d]o [D]elete permanently"
 
 # ripdrag
 [[manager.prepend_keymap]]
 on = "<C-n>"
 run = '''shell 'ripdrag -i -s 124 -W 128 -H 128 -a "$@" -x 2>/dev/null &' --confirm'''
+
+# yank file contents to clipboard 
+[[manager.prepend_keymap]]
+on = ['c', 'C']
+run = ["plugin copy-file-contents"]
+# run = ['''
+# 	shell 'for path in "$@"; do cat "$path"; done | wl-copy -t text/uri-list'
+# ''', "yank"]
+desc = "[c]opy [C]ontents"
+
+# yank file
+[[manager.prepend_keymap]]
+on = ['c', 'u']
+run = [
+	'''
+	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list'
+''',
+	"yank",
+]
+desc = "[c]opy [u]ri"
