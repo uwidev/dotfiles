@@ -8,130 +8,6 @@ on = ["E"]
 run = "plugin eza-preview"
 desc = "Toggle tree/list dir preview"
 
-# [[manager.prepend_keymap]]
-# on = ["C"]
-# run = "plugin ouch --args=zip"
-# desc = "Compress with ouch"
-#
-# [[manager.prepend_keymap]]
-# on = ["C"]
-# run = "plugin ouch --args=zip"
-# desc = "Compress with ouch"
-#
-# [[manager.prepend_keymap]]
-# on = ["C"]
-# run = "plugin ouch --args=zip"
-# desc = "Compress with ouch"
-#
-# [[manager.prepend_keymap]]
-# on = ["C"]
-# run = "plugin ouch --args=zip"
-# desc = "Compress with ouch"
-
-# relative-motions mimic vim
-# [[manager.prepend_keymap]]
-# on = ["1"]
-# run = "plugin relative-motions --args=1"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["2"]
-# run = "plugin relative-motions --args=2"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["3"]
-# run = "plugin relative-motions --args=3"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["4"]
-# run = "plugin relative-motions --args=4"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["5"]
-# run = "plugin relative-motions --args=5"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["6"]
-# run = "plugin relative-motions --args=6"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["7"]
-# run = "plugin relative-motions --args=7"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["8"]
-# run = "plugin relative-motions --args=8"
-# desc = "Move in relative steps"
-#
-# [[manager.prepend_keymap]]
-# on = ["9"]
-# run = "plugin relative-motions --args=9"
-# desc = "Move in relative steps"
-#
-# # move tab buttons to alt+#
-# [[manager.prepend_keymap]]
-# on = ["<A-1>"]
-# run = "tab_switch 0"
-# desc = "Switch to the first tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-2>"]
-# run = "tab_switch 1"
-# desc = "Switch to the second tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-3>"]
-# run = "tab_switch 2"
-# desc = "Switch to the third tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-4>"]
-# run = "tab_switch 3"
-# desc = "Switch to the fourth tab"
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-5>"]
-# run = "tab_switch 4"
-# desc = "Switch to the fifth tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-6>"]
-# run = "tab_switch 5"
-# desc = "Switch to the sixth tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-7>"]
-# run = "tab_switch 6"
-# desc = "Switch to the seventh tab"
-#
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-8>"]
-# run = "tabs_witch 7"
-# desc = "Switch to the eighth tab"
-#
-# [[manager.prepend_keymap]]
-# on = ["<A-9>"]
-# run = "tab_switch 8"
-# desc = "Switch to the ninth tab"
-
-# vim f function, but no F, rather have filter?
-# [[manager.prepend_keymap]]
-# on = "f"
-# run = "plugin jump-to-char"
-# desc = "Jump to char"
-
 # marks for jumping
 [[manager.prepend_keymap]]
 on = ["<S-m>"]
@@ -198,3 +74,33 @@ run = [
 	"yank",
 ]
 desc = "[c]opy [u]ri"
+
+[[manager.prepend_keymap]]
+on = "<C-y>"
+run = ["plugin wl-clipboard"]
+
+[[manager.prepend_keymap]]
+on = "F"
+run = "plugin smart-filter"
+desc = "Smart filter"
+
+[[manager.prepend_keymap]]
+on = "o"
+run = "plugin open-with-cmd --args=block"
+desc = "[o]pen with command in the terminal"
+
+[[manager.prepend_keymap]]
+on = "O"
+run = "plugin open-with-cmd"
+desc = "[O]pen with command"
+
+# search for ignored files as well (e.g. files listed by .*ignore)
+[[manager.prepend_keymap]]
+on = "<C-s>"
+run = 'search --via=fd --args="--no-ignore"'
+desc = "[s]earch file name (inc. ignored)"
+
+[[manager.prepend_keymap]]
+on = "<C-S>"
+run = 'search --via=rg --args="--no-ignore"'
+desc = "[S]earch file content (inc. ignored)"
