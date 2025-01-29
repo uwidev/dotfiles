@@ -1,6 +1,6 @@
 import { App } from "astal/gtk3"
 import style from "./style/main.scss"
-import Bar from "./widget/Bar"
+import Init from "./Init.tsx"
 
 import monitorStyle from "./cssHotLoad";
 
@@ -13,5 +13,5 @@ App.start({
         print(request)
         res("ok")
     },
-    main: () => App.get_monitors().map(Bar),
+    main: () => App.get_monitors().map(Init),
 })
