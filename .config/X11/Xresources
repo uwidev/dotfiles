@@ -8,8 +8,8 @@ Xft.antialias: 1
 Xft.rgba: rgb
 
 ! Cursor for X
-! Xcursor.theme: "Posy's Cursor Black"
-! Xcursor.size: 48
+Xcursor.theme: "Posy's Cursor Black"
+Xcursor.size: 32
 
 #include "Xresources.d/pywal.Xresources"
 
