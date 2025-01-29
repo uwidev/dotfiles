@@ -29,12 +29,15 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 -- intention is to forget what we're overwriting, so write to blackhole reg.
 vim.keymap.set('x', '<leader>p', [["_dP]])
 
--- Use system clipboard on leader
-vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = '[y]ank motion to system clipboard' })
-vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = '[Y]ank line(s) to system clipboard' })
+-- Related to yanking and clipboard
+vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = '[y]ank system clipboard' })
+vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = '[Y]ank system clipboard' })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>p', [["+p]], { desc = '[p]aste from system clipboard' })
-vim.keymap.set('n', '<leader>p', [["+P]], { desc = '{P}aste above from system clipboard' })
+vim.keymap.set({ 'n', 'v' }, '<leader>p', [["+p]], { desc = '[p]aste system clipboard' })
+vim.keymap.set('n', '<leader>p', [["+P]], { desc = '{P}aste above system clipboard' })
+
+vim.keymap.set('n', '<leader>yl', 'm`0y$``', { desc = '[Y]ank line no \\n' })
+vim.keymap.set('n', '<leader><S-y>l', 'm`0+y$``', { desc = '[Y]ank to system clipboard no \\n' })
 
 -- There exists conflicting keymap <leader>d for diagnostics
 -- vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = '[d]elete to blackhole' })
@@ -124,5 +127,5 @@ end, {
 	desc = 'Re-enable autoformat-on-save',
 })
 
--- helpful
+-- Quick reformatting
 vim.keymap.set('n', '<leader>fn', ':%s/\\\\n/\\r/g<cr>', { desc = 'format [n]ew lines' })
