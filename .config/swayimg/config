@@ -38,7 +38,7 @@ window = #000000FF
 # Background for transparent images (grid/RGBA)
 transparency = grid
 # Default image scale (optimal/fit/width/height/fill/real)
-scale = optimal
+scale = fit
 # Keep absolute zoom across images (yes/no)
 keep_zoom = yes
 # Initial image position
