@@ -34,6 +34,13 @@ return {
 				-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 				-- See the full "keymap" documentation for information on defining your own keymap.
 				preset = 'default',
+				['<C-u>'] = {
+					function(cmp)
+						if not cmp.is_visible() then
+							vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-u>', true, true, true), 'n', true)
+						end
+					end,
+				},
 			},
 
 			appearance = {
