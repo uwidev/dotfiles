@@ -59,6 +59,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 zinit light z-shell/zsh-eza
 
+# Ollama completions
+zinit light ocodo/ollama_zsh_completion
+
 # Add in snippets
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
