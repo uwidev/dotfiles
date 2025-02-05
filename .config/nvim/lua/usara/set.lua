@@ -5,10 +5,10 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- Set indent
+-- Prefer tabs
 vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = -1 -- use same value as shiftwidth
+vim.opt.shiftwidth = 0 -- use tabstop value
+vim.opt.softtabstop = -1 -- use shiftwidth value
 vim.opt.expandtab = false
 
 vim.opt.autoindent = true
@@ -29,10 +29,11 @@ vim.opt.showmode = false
 -- vim.opt.clipboard = 'unnamedplus'
 
 -- Word wrap adjustment
--- vim.opt.wrap = true
+vim.opt.wrap = false -- wrap is on by default, uncomment to off
 vim.opt.breakindent = true
 vim.opt.showbreak = '󱞩 '
 vim.opt.breakindentopt = 'min:40,sbr'
+vim.opt.linebreak = true -- soft wrap at word boundary
 
 -- Better history management and concurrent editing
 vim.opt.undofile = true -- Undotree all the way
@@ -77,7 +78,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 7
 
 -- Declare dev highlight groups to be later defined by lushwal
 for i = 0, 15 do
