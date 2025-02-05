@@ -9,14 +9,6 @@ import os
 from pathlib import Path
 import argparse
 
-parser = argparse.ArgumentParser(prog="Manager for wallust and internal images.")
-
-choices = ["get", "next", "prev"]
-parser.add_argument("action", choices=choices)
-parser.add_argument("-p", "--path", type=Path)
-parser.add_argument("-r", "--reference", type=Path)
-
-args = parser.parse_args()
 
 wal_current_img = Path("~/.cache/wal/wal").expanduser()
 dir_default_imgs = Path("~/imgs/wal").expanduser()
@@ -24,43 +16,56 @@ dir_default_imgs = Path("~/imgs/wal").expanduser()
 lib_dir = Path(__file__).resolve().parent
 
 
-def get_img() -> str:
+def is_image(img_pth: Path) -> bool:
+	cmd_check_mime = ["xdg-mime", "query", "filetype", str(img_pth)]
+	output = subprocess.run(
+		cmd_check_mime, capture_output=True, text=True, check=True
+	).stdout
+
+	if "image/" in output:
+		return True
+
+	return False
+
+
+def get_current_img() -> Path:
+	with wal_current_img.open(mode="r") as fd:
+		return fd.readline().strip()
+
+
+def get_img(action: str, dir: Path, result: Path) -> str:
 	# retrieve img according to action
-	dir = args.path
-	ref = args.reference
-	action = args.action
-
-	if not ref:
-		with wal_current_img.open(mode="r") as fd:
-			ref = fd.readline().strip()
-
-	if not dir:
-		dir = dir_default_imgs
-
 	cmd_fscroll = [
 		f"{lib_dir}/file_scroller.py",
 		action,
 		"-p",
-		str(dir),
-		"-r",
-		str(ref),
+		dir,
 	]
 
-	img = subprocess.run(cmd_fscroll, capture_output=True, text=True, check=True).stdout
-	return img
+	cur_img = get_current_img()
+	while True:
+		result = subprocess.run(
+			cmd_fscroll + ["-r", result], capture_output=True, text=True, check=True
+		).stdout.rstrip()
+
+		if is_image(Path(result)):
+			return Path(result)
+
+		if result == str(cur_img):
+			return cur_img
 
 
-def apply_wallust(img_path: str):
+def apply_wallust(im_pth: Path):
 	# wallust...
 	cmd_wallust = "wallust run {}"
 
-	subprocess.run(cmd_wallust.format(img_path), shell=True)
+	subprocess.run(cmd_wallust.format(im_pth), shell=True)
 
 	with wal_current_img.open(mode="w+") as fd:
-		fd.write(img_path)
+		fd.write(str(im_pth))
 
 
-def apply_paper(img_path: str):
+def apply_paper(im_pth: Path):
 	# set wallpaper to all monitors
 	# in the future, preload a window of files that we plant o scroll on
 	monitors = subprocess.run(
@@ -75,17 +80,17 @@ def apply_paper(img_path: str):
 	cmd_paper_set = 'hyprctl hyprpaper wallpaper "{},{}"'
 
 	subprocess.run(cmd_paper_unload_all, shell=True)
-	subprocess.run(cmd_paper_pre.format(img_path), shell=True)
+	subprocess.run(cmd_paper_pre.format(str(im_pth)), shell=True)
 
 	for m in monitors:
-		subprocess.run(cmd_paper_set.format(m, img_path), shell=True)
+		subprocess.run(cmd_paper_set.format(m, str(im_pth)), shell=True)
 
 
-def apply_swww(img_path: str):
+def apply_swww(im_pth: Path):
 	# alternative to hyprpaper... if it works properly.
-	cmd_swww = "swww img {}"
+	cmd_swww = f'swww img "{str(im_pth)}" --transition-type any --transition-duration 1 --transition-fps 144 --resize crop'
 
-	subprocess.Popen(cmd_swww.format(img_path), shell=True)
+	subprocess.Popen(cmd_swww, shell=True)
 
 
 # sync with everything...!
@@ -130,10 +135,23 @@ def apply_discord():
 
 
 def main():
-	img_path = get_img()
-	apply_wallust(img_path)
-	apply_paper(img_path)
-	# apply_swww(img_path)
+	parser = argparse.ArgumentParser(prog="Manager for wallust and internal images.")
+
+	choices = ["get", "next", "prev"]
+	parser.add_argument("action", choices=choices)
+	parser.add_argument("-p", "--path", type=Path)
+	parser.add_argument("-r", "--reference", type=Path)
+
+	args = parser.parse_args()
+
+	action = args.action or "get"
+	dir = args.path or dir_default_imgs
+	ref = args.reference or get_current_img()
+
+	im_pth = get_img(action, dir, ref)
+	apply_wallust(im_pth)
+	# apply_paper(im_pth)
+	apply_swww(im_pth)
 	apply_gtk()
 	apply_x()
 	apply_mako()
