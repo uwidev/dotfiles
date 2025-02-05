@@ -12,9 +12,13 @@ return {
 			{ 'rktjmp/lush.nvim' },
 			{ 'rktjmp/shipwright.nvim' },
 		},
+		lazy = false,
 		init = function()
-			require('lushwal').compile()
-			vim.cmd.colorscheme 'lushwal'
+			local ok, err = pcall(vim.cmd, 'silent! colorscheme lushwal')
+			if not ok then
+				print 'lushwal compile error'
+				print(err)
+			end
 		end,
 		config = function()
 			vim.g.lushwal_configuration = {
