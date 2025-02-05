@@ -33,8 +33,8 @@ configuration {
     /* auto-select: false; */
     /* parse-hosts: false; */
     /* parse-known-hosts: true; */
-    combi-modes: "window,run,ssh";
-    /* matching: "normal"; */
+    combi-modes: "run,ssh";
+    matching: "fuzzy";
     /* tokenize: true; */
     /* m: "-5"; */
     /* filter: ; */
@@ -157,3 +157,5 @@ configuration {
 }
 
 @theme "pywal"
+
+/* vim: set ft=css */
