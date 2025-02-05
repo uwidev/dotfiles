@@ -128,4 +128,64 @@ end, {
 })
 
 -- Quick reformatting
-vim.keymap.set('n', '<leader>fn', ':%s/\\\\n/\\r/g<cr>', { desc = 'format [n]ew lines' })
+vim.keymap.set('n', '<leader>fn', ':%s/\\\\n/\\r/g<cr>', { desc = 'format [n]ew line on \\n' })
+vim.keymap.set('x', '<leader>fn', ":'<,'>s/\\\\n/\\r/g<cr>", { desc = 'format [n]ew line on \\n' })
+vim.keymap.set('n', '<leader>f,', ':%s/,/,\\r/g<cr>', { desc = 'format [n]new line on ,' })
+vim.keymap.set('x', '<leader>f,', ":'<,'>s/,/,\\r/g<cr>", { desc = 'format [n]new line on ,' })
+
+-- Alter movement when word wrap is enabled
+-- https://vimtricks.com/p/word-wrapping/
+local wrap_enabled = false
+local wrap_remapped = false
+function ToggleWrap(do_remap)
+	-- vim.opt.list = true
+	if not wrap_enabled then --toggle on
+		wrap_enabled = true
+		vim.opt.wrap = true
+		if do_remap and not wrap_remapped then
+			wrap_remapped = true
+			-- vim.opt.linebreak = true
+
+			vim.keymap.set('n', 'j', 'gj', { noremap = true })
+			vim.keymap.set('n', 'k', 'gk', { noremap = true })
+			vim.keymap.set('n', '0', 'g0', { noremap = true })
+			vim.keymap.set('n', '^', 'g^', { noremap = true })
+			vim.keymap.set('n', '$', 'g$', { noremap = true })
+			vim.keymap.set('v', 'j', 'gj', { noremap = true })
+			vim.keymap.set('v', 'k', 'gk', { noremap = true })
+			vim.keymap.set('v', '0', 'g0', { noremap = true })
+			vim.keymap.set('v', '^', 'g^', { noremap = true })
+			vim.keymap.set('v', '$', 'g$', { noremap = true })
+		end
+	else -- toggle off
+		wrap_enabled = false
+		vim.opt.wrap = false
+		if wrap_remapped then
+			-- vim.opt.linebreak = false
+			wrap_remapped = false
+
+			vim.api.nvim_del_keymap('n', 'j')
+			vim.api.nvim_del_keymap('n', 'k')
+			vim.api.nvim_del_keymap('n', '0')
+			vim.api.nvim_del_keymap('n', '^')
+			vim.api.nvim_del_keymap('n', '$')
+			vim.api.nvim_del_keymap('v', 'j')
+			vim.api.nvim_del_keymap('v', 'k')
+			vim.api.nvim_del_keymap('v', '0')
+			vim.api.nvim_del_keymap('v', '^')
+			vim.api.nvim_del_keymap('v', '$')
+		end
+	end
+	print(tostring(wrap_enabled) .. tostring(wrap_remapped))
+end
+
+if vim.o.wrap then
+	ToggleWrap()
+end
+
+vim.keymap.set('n', '<leader>W', function()
+	ToggleWrap(true)
+end, { noremap = true, desc = 'toggle [W]rap w/ remap' })
+vim.keymap.set('n', '<leader>w', function()
+	ToggleWrap(false)
+end, { noremap = true, desc = 'toggle [w]rap' })
