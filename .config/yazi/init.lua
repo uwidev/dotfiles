@@ -1,5 +1,5 @@
 -- https://github.com/dedukun/relative-motions.yazi
--- require("relative-motions"):setup({ show_numbers = "relative", show_motion = true })
+require("relative-motions"):setup({ show_numbers = "relative", show_motion = true })
 
 -- https://github.com/dedukun/bookmarks.yazi
 require("bookmarks"):setup({

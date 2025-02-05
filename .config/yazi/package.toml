@@ -12,7 +12,7 @@ deps = [
 	{ use = "grappas/wl-clipboard", rev = "c4edc4f" },
 	{ use = "yazi-rs/plugins:smart-filter", rev = "8ed2537" },
 	{ use = "Ape/open-with-cmd", rev = "a80d1cf" },
-	{ use = "yazi-rs/plugins:git", rev = "8ed2537" }, { use = "yazi-rs/plugins:mime-ext", rev = "8ed2537" },
+	{ use = "yazi-rs/plugins:git", rev = "8ed2537" }, { use = "yazi-rs/plugins:mime-ext", rev = "8ed2537" }, { use = "dedukun/relative-motions", rev = "0d9c8cf" },
 ]
 
 
