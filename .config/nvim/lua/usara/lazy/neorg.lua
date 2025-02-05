@@ -10,6 +10,16 @@ return { -- neorg support, better notes
 				['core.concealer'] = {
 					config = {
 						icons = {
+							heading = {
+								icons = {
+									'󰉫',
+									'󰉬',
+									'󰉭',
+									'󰉮',
+									'󰉯',
+									'󰉰',
+								},
+							},
 							todo = {
 								undone = {
 									icon = ' ',
