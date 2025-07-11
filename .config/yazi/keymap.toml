@@ -1,62 +1,62 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["C"]
-run = "plugin ouch --args=zip"
+run = "plugin ouch zip"
 desc = "[C]ompress with ouch"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["E"]
 run = "plugin eza-preview"
 desc = "Toggle tree/list dir preview"
 
 # marks for jumping
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["<S-m>"]
-run = "plugin bookmarks --args=save"
+run = "plugin bookmarks save"
 desc = "[m]ark to key"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["'"]
-run = "plugin bookmarks --args=jump"
+run = "plugin bookmarks jump"
 desc = "jump to mark"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["b", "d"]
-run = "plugin bookmarks --args=delete"
+run = "plugin bookmarks delete"
 desc = "[b]ookmark [d]elete"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["b", "D"]
-run = "plugin bookmarks --args=delete_all"
+run = "plugin bookmarks delete_all"
 desc = "[b]ookmark [D]elete ALL"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["c", "m"]
 run = "plugin chmod"
 desc = "[c]h[m]od files"
 
 # undo on deleted items
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["d", "u"]
 run = "plugin restore"
 desc = "[d]elete [u]ndo"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["d", "d"]
 run = "remove"
 desc = "[d]o [d]elete"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["d", "D"]
 run = "remove --permanently"
 desc = "[d]o [D]elete permanently"
 
 # ripdrag
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "<C-n>"
 run = '''shell 'ripdrag -i -s 124 -W 128 -H 128 -a "$@" -x 2>/dev/null &' --confirm'''
 
 # yank file contents to clipboard 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ['c', 'C']
 run = ["plugin copy-file-contents"]
 # run = ['''
@@ -65,50 +65,54 @@ run = ["plugin copy-file-contents"]
 desc = "[c]opy [C]ontents"
 
 # yank file
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ['c', 'u']
 run = [
 	'''
 	shell 'for path in "$@"; do echo "file://$path"; done | wl-copy -t text/uri-list'
-''',
+	''',
 	"yank",
 ]
 desc = "[c]opy [u]ri"
 
-[[manager.prepend_keymap]]
-on = "<C-y>"
-run = ["plugin wl-clipboard"]
+[[mgr.prepend_keymap]]
+# on = "<C-y>"
+# run = ["plugin wl-clipboard"]
+desc = "[c]opy to wl-clipboard"
 
-[[manager.prepend_keymap]]
+on = "<C-y>"
+run = ["plugin system-clipboard"]
+
+[[mgr.prepend_keymap]]
 on = "F"
 run = "plugin smart-filter"
 desc = "Smart filter"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "o"
-run = "plugin open-with-cmd --args=block"
+run = "plugin open-with-cmd block"
 desc = "[o]pen with command in the terminal"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "O"
 run = "plugin open-with-cmd"
 desc = "[O]pen with command"
 
 # search for ignored files as well (e.g. files listed by .*ignore)
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "<C-s>"
 run = 'search --via=fd --args="--no-ignore"'
 desc = "[s]earch file name (inc. ignored)"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "<C-S>"
 run = 'search --via=rg --args="--no-ignore"'
 desc = "[S]earch file content (inc. ignored)"
 
 # fd exclude
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = "<C-f>"
-run = 'search --via=fd --args="--exclude"'
+run = 'search --via=fd --args="-E"'
 desc = "[f]ind exclude"
 #
 # # do not include .snapshots folder in searches
@@ -118,47 +122,52 @@ desc = "[f]ind exclude"
 # desc = "[f]ind filenames"
 
 # relative motions
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["1"]
-run = "plugin relative-motions --args=1"
+run = "plugin relative-motions 1"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["2"]
-run = "plugin relative-motions --args=2"
+run = "plugin relative-motions 2"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["3"]
-run = "plugin relative-motions --args=3"
+run = "plugin relative-motions 3"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["4"]
-run = "plugin relative-motions --args=4"
+run = "plugin relative-motions 4"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["5"]
-run = "plugin relative-motions --args=5"
+run = "plugin relative-motions 5"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["6"]
-run = "plugin relative-motions --args=6"
+run = "plugin relative-motions 6"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["7"]
-run = "plugin relative-motions --args=7"
+run = "plugin relative-motions 7"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["8"]
-run = "plugin relative-motions --args=8"
+run = "plugin relative-motions 8"
 desc = "Move in relative steps"
 #
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on = ["9"]
-run = "plugin relative-motions --args=9"
+run = "plugin relative-motions 9"
 desc = "Move in relative steps"
+
+[[mgr.prepend_keymap]]
+on = ["E"]
+run = "plugin eza-preview"
+desc = "Toggle tree/list dir preview"

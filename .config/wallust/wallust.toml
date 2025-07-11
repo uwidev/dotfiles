@@ -51,20 +51,22 @@ threshold = 10
 # If one is a directory, the other one NEEDS to also be one, one line example below
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
 #
-# We also still use ~/.cache/wal as the primary directory for backwards compatability.
+# We also still use ~/.cache/wal as the primary directory for backwards compatibility.
 
 colors = { src = "colors", dst = "~/.cache/wal/colors", pywal = true }
 discord = { src = "discord-wallust-v3.css", dst = "~/.config/vesktop/themes/colors-discord.css", pywal = false }
 # discord = { src = "discord-colors.css", dst = "~/.cache/wallust/discord-colors.css", pywal = false }
 hyprland = { src = "colors-hyprland.conf", dst = "~/.config/hypr/pywal.conf", pywal = true }
+hyprland-borders = { src = "hyprland-borders.conf", dst = "~/.config/hypr/hyprland-borders.conf" }
 waybar = { src = "colors-waybar.css", dst = "~/.config/waybar/pywal.css", pywal = true }
 ags = { src = "colors.scss", dst = "~/.config/ags/style/colors.scss", pywal = true }
 xresources = { src = "colors.Xresources", dst = "~/.config/X11/Xresources.d/pywal.Xresources", pywal = true }
-rofi = { src = "colors-rofi-dark.rasi", dst = "~/.config/rofi/pywal.rasi", pywal = true }
+rofi = { src = "colors-rofi-dark.rasi", dst = "~/.config/rofi/pywal.rasi", pywal = false }
 mako = { src = "colors.sh", dst = "~/.cache/wal/colors.sh", pywal = false }
 termusic = { src = "colors-termusic.yml", dst = "~/.config/termusic/themes/pywal16.yml", pywal = true }
 img = { src = "wal", dst = "~/.cache/wal/wal", pywal = false }
 kvantun_conf = { src = "pywal.kvconfig", dst = "~/.config/Kvantum/pywal/pywal.kvconfig", pywal = false }
 kvantum_svg = { src = "pywal.svg", dst = "~/.config/Kvantum/pywal/pywal.svg", pywal = false }
-json = { src = "colors.json", dst = "~/.cache/wal/colors.json", pywal = true }
+json = { src = "colors.json", dst = "~/.cache/wal/colors.json", pywal = false }
 grandience = { src = 'pywal.json', dst = '~/.cache/wal/pywal.json', pywal = false }
+foot = { src = 'colors.ini', dst = '~/.config/foot/colors.ini', pywal = false }

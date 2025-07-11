@@ -12,20 +12,23 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+
 # zsh histfile requires dir to already be there
 if [ ! -e "$HISTFILE" ]; then
 	mkdir -p "$HISTFILE"
 fi
-
-# set up necessary infrstructure for code completion
 
 # antidote plugin manager
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 source ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
+# set up necessary infrstructure for code completion
 autoload -Uz compinit
-compinit
+
+# Move zcoredumps out of home and init
+[[ ! -d "$XDG_CACHE_HOME"/zsh ]] && mkdir "$XDG_CACHE_HOME"/zsh
+compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # dotfiles
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
@@ -34,6 +37,11 @@ compdef _git dfi # use git comp for alias `dotfiles`
 
 # themeing
 eval "$(oh-my-posh init zsh --config $XDG_CONFIG_HOME/ohmyposh/config.toml)"
+
+# settings for zsh-history-substring-search
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND="bg=yellow,fg=white,bold"
+HISTORY_SUBSTRING_SEARCH_PREFIXED=1 # do not glob fuzzy the start of command
+HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 # absolutely no dupes
 
 # better fzf key bindings
 # autoload tells zsh to look for this function on fpath as needed
@@ -44,7 +52,18 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-# Keybindings
+# # enable vim-like bindings
+# bindkey -v
+# # Add text object extension -- eg ci" da(:
+# autoload -U select-quoted
+# zle -N select-quoted
+# for m in visual viopp; do
+#     for c in {a,i}{\',\",\`}; do
+#         bindkey -M $m $c select-quoted
+#     done
+# done
+
+# other bindings
 bindkey -v
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
@@ -53,9 +72,10 @@ bindkey "^[[A" up-line-or-beginning-search
 bindkey "^[[B" down-line-or-beginning-search
 
 # bindings for history substring plugin
-bindkey "^[[A" history-substring-search-up
-bindkey "^[[B" history-substring-search-down
-
+# bindkey "^[[A" history-substring-search-up
+# bindkey "^[[B" history-substring-search-down
+# zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up" "bindkey '^[[B' history-substring-search-down")
+zvm_after_init_commands+=("bindkey '^[[A' history-substring-search-up" "bindkey '^[[B' history-substring-search-down")
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -66,9 +86,6 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # init fzf (fuzzy cd)
 eval "$(fzf --zsh)"
-
-# Move zcoredumps out of home
-compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # dynamically set window title
 autoload -Uz add-zsh-hook  # allow custom hook functions for zsh
@@ -153,6 +170,8 @@ alias adb='HOME="$XDG_DATA_HOME"/android adb'
 
 alias vim=nvim
 
+alias jaex="unzip -O CP932"
+
 # Per xdg-ninja alias to declutter $HOME
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings'
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
@@ -192,7 +211,7 @@ alias ...='cd ../..'
 alias sys='systemctl'
 alias sysu='systemctl --user'
 alias ja='journalctl'
-alias jab='journalctl - b'
+alias jab='journalctl -b'
 alias jau='journalctl --user'
 alias jaub='journalctl --user -b'
 

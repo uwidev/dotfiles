@@ -39,6 +39,20 @@ vim.keymap.set('n', '<leader>p', [["+P]], { desc = '{P}aste above system clipboa
 vim.keymap.set('n', '<leader>yl', 'm`0y$``', { desc = '[Y]ank line no \\n' })
 vim.keymap.set('n', '<leader><S-y>l', 'm`0+y$``', { desc = '[Y]ank to system clipboard no \\n' })
 
+-- Join selected lines, yank line, undo join
+vim.keymap.set('v', '<leader>gJ', function()
+	vim.cmd.normal { 'gJ', bang = true }
+	vim.cmd.normal { '"+yy', bang = true }
+	vim.cmd.normal { 'u', bang = true }
+end, { desc = 'yank [J]oined no space', silent = true })
+
+-- Join selected lines, yank line, undo join
+vim.keymap.set('v', '<leader>J', function()
+	vim.cmd.normal { 'J', bang = true }
+	vim.cmd.normal { '"+yy', bang = true }
+	vim.cmd.normal { 'u', bang = true }
+end, { desc = 'yank [J]oined w/ space', silent = true })
+
 -- There exists conflicting keymap <leader>d for diagnostics
 -- vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = '[d]elete to blackhole' })
 
@@ -73,12 +87,12 @@ vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', function()
-	vim.diagnostic.jump { count = -1 }
-end, { desc = 'Go to previous [d]iagnostic message' })
-vim.keymap.set('n', ']d', function()
-	vim.diagnostic.jump { count = 1 }
-end, { desc = 'Go to next [d]iagnostic message' })
+-- vim.keymap.set('n', '[d', function()
+-- 	vim.diagnostic.jump { count = -1 }
+-- end, { desc = 'Go to previous [d]iagnostic message' })
+-- vim.keymap.set('n', ']d', function()
+-- 	vim.diagnostic.jump { count = 1 }
+-- end, { desc = 'Go to next [d]iagnostic message' })
 vim.keymap.set('n', '<leader>de', vim.diagnostic.open_float, { desc = 'Show [d]iagnostic [e]rror messages' })
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = 'Open [d]iagnostic [q]uickfix list' })
 
@@ -176,7 +190,7 @@ function ToggleWrap(do_remap)
 			vim.api.nvim_del_keymap('v', '$')
 		end
 	end
-	print(tostring(wrap_enabled) .. tostring(wrap_remapped))
+	-- print(tostring(wrap_enabled) .. tostring(wrap_remapped))
 end
 
 if vim.o.wrap then

@@ -1,4 +1,5 @@
 @use "../widget/notifications/Notifications.scss";
+@use "../widget/applauncher/Applauncher.scss";
 @use './colors.scss';
 
 $bg: colors.$background;
@@ -12,14 +13,14 @@ window {
 }
 
 window.Bar > centerbox {
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     border-radius: $radius;
     box-shadow: none;
     background-color: rgba($bg, 0.66);
     color: $fg;
     margin: 4px 4px 0 4px;
-    min-height: 24px;
+    min-height: 32px;
 
     button {
         all: unset;

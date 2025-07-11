@@ -134,6 +134,13 @@ def apply_discord():
 	subprocess.Popen(f"{lib_dir}/walcord", shell=True)
 
 
+def apply_obsidian():
+	subprocess.Popen(
+		f'{lib_dir}/pywal-obsidianmd/pywal-obsidianmd.sh "/mnt/hdd/Projects/00 Critical/00 In Progress/vault"',
+		shell=True,
+	)
+
+
 def main():
 	parser = argparse.ArgumentParser(prog="Manager for wallust and internal images.")
 
@@ -156,6 +163,7 @@ def main():
 	apply_x()
 	apply_mako()
 	apply_fox()
+	apply_obsidian()
 
 
 if __name__ == "__main__":

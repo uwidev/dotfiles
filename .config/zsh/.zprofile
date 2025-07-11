@@ -155,6 +155,8 @@ USWM_USER_SESSION_SLICE=true
 # fi
 
 # Faster variant, cannot drop to tty
-if uwsm check may-start; then
-    exec uwsm start hyprland.desktop
+if [[ -z "$SSH_TTY" && -z "$SSH_CONNECTION" ]]; then
+    if uwsm check may-start; then
+        exec uwsm start hyprland.desktop
+    fi
 fi

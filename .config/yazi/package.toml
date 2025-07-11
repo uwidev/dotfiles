@@ -1,20 +1,77 @@
-[plugin]
-deps = [
-	{ use = "ndtoan96/ouch", rev = "b869886" },
-	{ use = "ahkohd/eza-preview", rev = "5ef05bc" },
-	{ use = "yazi-rs/plugins:jump-to-char", rev = "600614a" },
-	{ use = "dedukun/bookmarks", rev = "5116df5" },
-	{ use = "yazi-rs/plugins:chmod", rev = "600614a" },
-	{ use = "boydaihungst/restore", rev = "ffc209e" },
-	{ use = "AnirudhG07/plugins-yazi:copy-file-contents", rev = "11167e1" },
-	{ use = "Reledia/glow", rev = "5ce76dc" },
-	{ use = "Reledia/hexyl", rev = "39d3d4e" },
-	{ use = "grappas/wl-clipboard", rev = "c4edc4f" },
-	{ use = "yazi-rs/plugins:smart-filter", rev = "8ed2537" },
-	{ use = "Ape/open-with-cmd", rev = "a80d1cf" },
-	{ use = "yazi-rs/plugins:git", rev = "8ed2537" }, { use = "yazi-rs/plugins:mime-ext", rev = "8ed2537" }, { use = "dedukun/relative-motions", rev = "0d9c8cf" },
-]
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "1ee69a5"
+hash = "63679f3daf8551ff8755be38b5ced0f"
 
+[[plugin.deps]]
+use = "ahkohd/eza-preview"
+rev = "b114b01"
+hash = "7676d7da18953f4351048004ab45f0f4"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:jump-to-char"
+rev = "2ad42fa"
+hash = "d2f04875bbd4ed3dd5696e8c4b094fde"
+
+[[plugin.deps]]
+use = "dedukun/bookmarks"
+rev = "fbb7c00"
+hash = "1d231a808d3344546380df33daf43e91"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:chmod"
+rev = "2ad42fa"
+hash = "1adc12c2b2b025411ab61eb8f0879574"
+
+[[plugin.deps]]
+use = "boydaihungst/restore"
+rev = "2c2802d"
+hash = "6513e9224b29ac1e2b3a7326ff648e81"
+
+[[plugin.deps]]
+use = "AnirudhG07/plugins-yazi:copy-file-contents"
+rev = "71545f4"
+hash = "f8530ee84fee95dbcc26bb1d8d8019c7"
+
+[[plugin.deps]]
+use = "Reledia/glow"
+rev = "bd3eaa5"
+hash = "92b5c58159a51c567f82b618cee2b78"
+
+[[plugin.deps]]
+use = "Reledia/hexyl"
+rev = "016a09b"
+hash = "50da29476e744dba37d77fb209328fd1"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-filter"
+rev = "2ad42fa"
+hash = "a9d553bd19a3cd7f4eab3abaac5d67ff"
+
+[[plugin.deps]]
+use = "Ape/open-with-cmd"
+rev = "433cf30"
+hash = "86e0312b01bc5762813c6c1d0517f073"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "2ad42fa"
+hash = "e01006bfb38951ea89031bd918b20dbb"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:mime-ext"
+rev = "2ad42fa"
+hash = "4c49c446328c4553a4ccab7facc10b21"
+
+[[plugin.deps]]
+use = "dedukun/relative-motions"
+rev = "9d26460"
+hash = "6c0568cfa966a5d4ac496c926975a613"
+
+[[plugin.deps]]
+use = "orhnk/system-clipboard"
+rev = "efb8f03"
+hash = "9b8f2573da54334b04747e51556040cc"
 
 [flavor]
 deps = []

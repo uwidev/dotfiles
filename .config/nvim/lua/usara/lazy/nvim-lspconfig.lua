@@ -121,6 +121,39 @@ return { -- LSP Configuration & Plugins
 			end,
 		})
 
+		-- additional modifications for ruff and pyright
+		-- defer textDocument/hover to pyright
+		vim.api.nvim_create_autocmd('LspAttach', {
+			group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if client == nil then
+					return
+				end
+				if client.name == 'ruff' then
+					-- Disable hover in favor of Pyright
+					client.server_capabilities.hoverProvider = false
+				end
+			end,
+			desc = 'LSP: Disable hover capability from Ruff',
+		})
+
+		-- use ruff exclusively for linting, formatting, and organizing imports
+		require('lspconfig').pyright.setup {
+			settings = {
+				pyright = {
+					-- Using Ruff's import organizer
+					disableOrganizeImports = true,
+				},
+				python = {
+					analysis = {
+						-- Ignore all files for analysis to exclusively use Ruff for linting
+						ignore = { '*' },
+					},
+				},
+			},
+		}
+
 		-- LSP servers and clients are able to communicate to each other what features they support.
 		--  By default, Neovim doesn't support everything that is in the LSP specification.
 		--  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -128,6 +161,12 @@ return { -- LSP Configuration & Plugins
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		-- capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 		capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+
+		-- -- Adjust capabilities for UFO folding
+		-- capabilities.textDocument.foldingRange = {
+		-- 	dynamicRegistration = false,
+		-- 	lineFoldingOnly = true,
+		-- }
 
 		-- Enable the following language servers
 		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
@@ -176,7 +215,7 @@ return { -- LSP Configuration & Plugins
 					-- },
 				},
 				pylsp = {
-					-- autostart = false,
+					autostart = false,
 					settings = {
 						pylsp = {
 							plugins = {
@@ -197,7 +236,7 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 				pyright = {
-					autostart = false,
+					-- autostart = false,
 				},
 
 				-- shell/bash scripting
@@ -273,7 +312,7 @@ return { -- LSP Configuration & Plugins
 				-- toml
 				taplo = {},
 
-				-- C
+				-- C-related
 				clangd = {},
 			},
 			-- Ensure the servers and tools above are installed

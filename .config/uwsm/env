@@ -87,9 +87,11 @@ export path='$PYENV_ROOT/bin:$PATH'
 
 
 # Nvidia
-export LIBVA_DRIVER_NAME=nvidia
 export GBM_BACKEND=nvidia-drm  # REMOVE IF FIREFOX CRASHES
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export LIBVA_DRIVER_NAME=nvidia
+export __GL_GSYNC_ALLOWED=0
+export __GL_VRR_ALLOWED=0
 export NVD_BACKEND=direct
 export VK_DRIVER_FILES=/usr/share/vulkan/icd.d/nvidia_icd.json
 

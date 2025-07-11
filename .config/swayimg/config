@@ -19,7 +19,9 @@
 # Mode at startup (viewer/gallery)
 mode = viewer
 # Window position (parent or absolute coordinates, e.g. 100,200)
-position = parent
+position = auto
+# Sway/Hyprland only: Create floating window above the currently focused oneAdd commentMore actions
+overlay = yes
 # Window size (fullscreen/parent/image, or absolute size, e.g. 800,600)
 size = parent
 # Action performed by SIGUSR1 signal (same format as for key bindings)
@@ -41,9 +43,9 @@ transparency = grid
 scale = fit
 # scale = optimal
 # Keep absolute zoom across images (yes/no)
-keep_zoom = yes
+keep_zoom = no
 # Initial image position
-position = top
+position = center
 # Fix position of the image on the window surface (yes/no)
 fixed = yes
 # Anti-aliasing mode (none/box/bilinear/bicubic/mks13)
@@ -140,26 +142,26 @@ bottom_right = name,status
 F1 = help
 
 ### start vim-like bindings
-j = step_down 5
-k = step_up 5
-h = step_left 5
-l = step_right 5
+# j = step_down 5
+# k = step_up 5
+# h = step_left 5
+# l = step_right 5
+#
+# u = step_up 50
+# d = step_down 50
+# b = step_left 50
+# w = step_right 50
+#
+# g = step_up 999
+# Shift+G = step_down 999
+# Shift+$ = step_right 999
+# 0 = step_left 999
+#
+# Shift+j = zoom +10
+# Shift+k = zoom -10
 
-u = step_up 50
-d = step_down 50
-b = step_left 50
-w = step_right 50
-
-g = step_up 999
-Shift+G = step_down 999
-Shift+$ = step_right 999
-0 = step_left 999
-
-Shift+j = zoom +10
-Shift+k = zoom -10
-
-n = next_file
-p = prev_file
+j = next_file
+k = prev_file
 
 # g = first_file
 # Shift+G = last_file
@@ -194,6 +196,7 @@ R = reload
 i = info
 Delete = exec trash "%"; skip_file
 Shift+Delete = exec rm "%"; skip_file
+# o = exec mpv "%"
 Escape = exit
 q = exit
 
