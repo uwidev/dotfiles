@@ -1,0 +1,23 @@
+romkatv/zsh-defer
+Aloxaf/fzf-tab
+
+zdharma-continuum/fast-syntax-highlighting
+# zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+zsh-users/zsh-history-substring-search # must come after syntax highlighting
+ocodo/ollama_zsh_completion kind:fpath
+
+lervag/apy kind:fpath
+
+z-shell/zsh-eza
+
+# jeffreytse/zsh-vi-mode
+
+# ohmyzsh/ohmyzsh path:lib
+# ohmyzsh/ohmyzsh path:plugins/git
+# ohmyzsh/ohmyzsh path:plugins/sudo
+# ohmyzsh/ohmyzsh path:plugins/archlinux
+# ohmyzsh/ohmyzsh path:plugins/command-not-found
+
+# vim:set ft=zsh
