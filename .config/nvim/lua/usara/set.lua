@@ -31,7 +31,8 @@ vim.opt.showmode = false
 -- Word wrap adjustment
 vim.opt.wrap = false -- wrap is on by default, uncomment to off
 vim.opt.breakindent = true
-vim.opt.showbreak = '󱞩 '
+-- vim.opt.showbreak = '󱞩 '
+-- vim.opt.showbreak = '· '
 vim.opt.breakindentopt = 'min:40,sbr'
 vim.opt.linebreak = true -- soft wrap at word boundary
 

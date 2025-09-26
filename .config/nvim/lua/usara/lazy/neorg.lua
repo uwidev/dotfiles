@@ -55,7 +55,8 @@ return { -- neorg support, better notes
 				['core.dirman'] = {
 					config = {
 						workspaces = {
-							notes = '~/docs/notes',
+							notes = '~/docs/notes/',
+							ramble = '~/docs/notes/ramble',
 							journal = '~/docs/notes/journal',
 						},
 					},

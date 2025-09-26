@@ -138,21 +138,21 @@ return { -- LSP Configuration & Plugins
 			desc = 'LSP: Disable hover capability from Ruff',
 		})
 
-		-- use ruff exclusively for linting, formatting, and organizing imports
-		require('lspconfig').pyright.setup {
-			settings = {
-				pyright = {
-					-- Using Ruff's import organizer
-					disableOrganizeImports = true,
-				},
-				python = {
-					analysis = {
-						-- Ignore all files for analysis to exclusively use Ruff for linting
-						ignore = { '*' },
-					},
-				},
-			},
-		}
+		-- -- use ruff exclusively for linting, formatting, and organizing imports
+		-- require('lspconfig').pyright.setup {
+		-- 	settings = {
+		-- 		pyright = {
+		-- 			-- Using Ruff's import organizer
+		-- 			disableOrganizeImports = true,
+		-- 		},
+		-- 		python = {
+		-- 			analysis = {
+		-- 				-- Ignore all files for analysis to exclusively use Ruff for linting
+		-- 				ignore = { '*' },
+		-- 			},
+		-- 		},
+		-- 	},
+		-- }
 
 		-- LSP servers and clients are able to communicate to each other what features they support.
 		--  By default, Neovim doesn't support everything that is in the LSP specification.
@@ -168,76 +168,53 @@ return { -- LSP Configuration & Plugins
 		-- 	lineFoldingOnly = true,
 		-- }
 
-		-- Enable the following language servers
-		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-		--
-		--  Add any additional override configuration in the following tables. Available keys are:
-		--  - cmd (table): Override the default command used to start the server
-		--  - filetypes (table): Override the default list of associated filetypes for the server
-		--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-		--  - settings (table): Override the default settings passed when initializing the server.
-		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-		local servers =
-			{
-				rust_analyzer = {},
+		-- The servers table comprises of the following sub-tables:
+		-- 1. mason
+		-- 2. others
+		-- Both these tables have an identical structure of language server names as keys and
+		-- a table of language server configuration as values.
+		---@class LspServersConfig
+		---@field mason table<string, vim.lsp.Config>
+		---@field others table<string, vim.lsp.Config>
+		local servers = {
+			--  Add any additional override configuration in any of the following tables. Available keys are:
+			--  - cmd (table): Override the default command used to start the server
+			--  - filetypes (table): Override the default list of associated filetypes for the server
+			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
+			--  - settings (table): Override the default settings passed when initializing the server.
+			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+			--
+			--  Feel free to add/remove any LSPs here that you want to install via Mason. They will automatically be installed and setup.
+			mason = {
+				-- clangd = {},
+				-- gopls = {},
+				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
 				-- Some languages (like typescript) have entire language plugins that can be useful:
 				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				ts_ls = {
-					cmd = { 'typescript-language-server', '--stdio' },
-				},
+				-- But for many setups, the LSP (`ts_ls`) will work just fine
+				-- ts_ls = {},
 
-				-- python
-				ruff = {
-					-- autostart = false,
-				},
-				jedi_language_server = {
-					autostart = false,
-					-- init_options = {
-					-- 	init_options = {
-					-- 		completion = {
-					-- 			disableSnippets = true,
-					-- 		},
-					-- 		diagnostics = {
-					-- 			enable = true,
-					-- 		},
-					-- 		workspace = {
-					-- 			symbols = {
-					-- 				ignoreFolders = {
-					-- 					{ '.nox', '.tox', '__pycache__' },
-					-- 				},
-					-- 			},
-					-- 		},
-					-- 	},
-					-- },
-				},
-				pylsp = {
-					autostart = false,
+				-- lua
+				lua_ls = {
+					-- cmd = { ... },
+					-- filetypes = { ... },
+					-- capabilities = {},
 					settings = {
-						pylsp = {
-							plugins = {
-								pycodestyle = {
-									enabled = false,
-								},
-								autopep8 = {
-									enabled = false,
-								},
-								yapf = {
-									enabled = false,
-								},
-								pyflakes = {
-									enabled = false,
-								},
+						Lua = {
+							completion = {
+								callSnippet = 'Replace',
 							},
+							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+							-- diagnostics = { disable = { 'missing-fields' } },
 						},
 					},
 				},
-				pyright = {
-					-- autostart = false,
-				},
+
+				-- python
+				pyright = {},
+				ruff = {},
 
 				-- shell/bash scripting
 				bashls = {},
@@ -245,24 +222,10 @@ return { -- LSP Configuration & Plugins
 				-- docker
 				docker_compose_language_service = {},
 
-				-- lua
-				lua_ls = {
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = 'Replace',
-							},
-						},
-					},
-				},
-
-				-- regular text
+				-- plaintext
 				textlsp = {
-					autostart = false,
-					filetypes = {
-						'txt',
-						'norg',
-					},
+					filetypes = { 'txt', 'norg' },
+					documents = { norg = { parse = true } },
 					settings = {
 						textLSP = {
 							analysers = {
@@ -275,14 +238,14 @@ return { -- LSP Configuration & Plugins
 									enabled = false,
 								},
 								ollama = {
-									enabled = true,
+									enabled = false,
 									check_text = {
 										on_open = true,
 										on_save = true,
 										on_change = false,
 									},
-									-- model = 'phi3:3.8b-instruct', -- smaller but faster model
-									model = 'phi3:14b-instruct', -- more accurate
+									model = 'phi3:3.8b-instruct', -- smaller but faster model
+									-- model = 'phi3:14b-instruct', -- more accurate
 									max_token = 50,
 								},
 							},
@@ -295,37 +258,169 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 
-				typos_lsp = {
-					-- autostart = false,
-					-- Logging level of the language server. Logs appear in :LspLog. Defaults to error.
-					cmd_env = { RUST_LOG = 'error' },
-					init_options = {
-						-- Custom config. Used together with any workspace config files, taking precedence for
-						-- settings declared in both. Equivalent to the typos `--config` cli argument.
-						-- config = '~/code/typos-lsp/crates/typos-lsp/tests/typos.toml',
-						-- How typos are rendered in the editor, can be one of an Error, Warning, Info or Hint.
-						-- Defaults to error.
-						diagnosticSeverity = 'Error',
-					},
-				},
+				typos_lsp = {},
 
 				-- toml
 				taplo = {},
-
-				-- C-related
-				clangd = {},
 			},
-			-- Ensure the servers and tools above are installed
-			--  To check the current status of installed tools and/or manually install
-			--  other tools, you can run
-			--    :Mason
-			--
-			--  You can press `g?` for help in this menu.
-			require('mason').setup()
+			-- This table contains config for all language servers that are *not* installed via Mason.
+			-- Structure is identical to the mason table from above.
+			others = {
+				-- dartls = {},
+			},
+		}
+
+		-- local servers =
+		-- {
+		-- 	rust_analyzer = {},
+		-- 	-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
+		-- 	--
+		-- 	-- Some languages (like typescript) have entire language plugins that can be useful:
+		-- 	--    https://github.com/pmizio/typescript-tools.nvim
+		-- 	--
+		-- 	-- But for many setups, the LSP (`tsserver`) will work just fine
+		-- 	ts_ls = {
+		-- 		cmd = { 'typescript-language-server', '--stdio' },
+		-- 	},
+		--
+		-- 	-- python
+		-- 	ruff = {
+		-- 		-- autostart = false,
+		-- 	},
+		-- 	jedi_language_server = {
+		-- 		autostart = false,
+		-- 		-- init_options = {
+		-- 		-- 	init_options = {
+		-- 		-- 		completion = {
+		-- 		-- 			disableSnippets = true,
+		-- 		-- 		},
+		-- 		-- 		diagnostics = {
+		-- 		-- 			enable = true,
+		-- 		-- 		},
+		-- 		-- 		workspace = {
+		-- 		-- 			symbols = {
+		-- 		-- 				ignoreFolders = {
+		-- 		-- 					{ '.nox', '.tox', '__pycache__' },
+		-- 		-- 				},
+		-- 		-- 			},
+		-- 		-- 		},
+		-- 		-- 	},
+		-- 		-- },
+		-- 	},
+		-- 	pylsp = {
+		-- 		autostart = false,
+		-- 		settings = {
+		-- 			pylsp = {
+		-- 				plugins = {
+		-- 					pycodestyle = {
+		-- 						enabled = false,
+		-- 					},
+		-- 					autopep8 = {
+		-- 						enabled = false,
+		-- 					},
+		-- 					yapf = {
+		-- 						enabled = false,
+		-- 					},
+		-- 					pyflakes = {
+		-- 						enabled = false,
+		-- 					},
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		--
+		-- 	pyright = {
+		-- 		autostart = false,
+		-- 	},
+		--
+		-- 	-- shell/bash scripting
+		-- 	bashls = {}
+		--
+		-- 	-- docker
+		-- 	docker_compose_language_service = {},
+		--
+		-- 	-- lua
+		-- 	lua_ls = {
+		-- 		settings = {
+		-- 			Lua = {
+		-- 				completion = {
+		-- 					callSnippet = 'Replace',
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		--
+		-- 	-- regular text
+		-- 	textlsp = {
+		-- 		autostart = false,
+		-- 		filetypes = {
+		-- 			'txt',
+		-- 			'norg',
+		-- 		},
+		-- 		settings = {
+		-- 			textLSP = {
+		-- 				analysers = {
+		-- 					languagetool = {
+		-- 						check_text = {
+		-- 							on_change = false,
+		-- 							on_open = true,
+		-- 							on_save = true,
+		-- 						},
+		-- 						enabled = false,
+		-- 					},
+		-- 					ollama = {
+		-- 						enabled = true,
+		-- 						check_text = {
+		-- 							on_open = true,
+		-- 							on_save = true,
+		-- 							on_change = false,
+		-- 						},
+		-- 						-- model = 'phi3:3.8b-instruct', -- smaller but faster model
+		-- 						model = 'phi3:14b-instruct', -- more accurate
+		-- 						max_token = 50,
+		-- 					},
+		-- 				},
+		-- 				documents = {
+		-- 					norg = {
+		-- 						parse = true,
+		-- 					},
+		-- 				},
+		-- 			},
+		-- 		},
+		-- 	},
+		--
+		-- 	typos_lsp = {
+		-- 		-- autostart = false,
+		-- 		-- Logging level of the language server. Logs appear in :LspLog. Defaults to error.
+		-- 		cmd_env = { RUST_LOG = 'error' },
+		-- 		init_options = {
+		-- 			-- Custom config. Used together with any workspace config files, taking precedence for
+		-- 			-- settings declared in both. Equivalent to the typos `--config` cli argument.
+		-- 			-- config = '~/code/typos-lsp/crates/typos-lsp/tests/typos.toml',
+		-- 			-- How typos are rendered in the editor, can be one of an Error, Warning, Info or Hint.
+		-- 			-- Defaults to error.
+		-- 			diagnosticSeverity = 'Error',
+		-- 		},
+		-- 	},
+		--
+		-- 	-- toml
+		-- 	taplo = {},
+		--
+		-- 	-- C-related
+		-- 	clangd = {},
+		-- },
+
+		-- Ensure the servers and tools above are installed
+		--  To check the current status of installed tools and/or manually install
+		--  other tools, you can run
+		--    :Mason
+		--
+		--  You can press `g?` for help in this menu.
+		require('mason').setup()
 
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
-		local ensure_installed = vim.tbl_keys(servers or {})
+		local ensure_installed = vim.tbl_keys(servers.mason or {})
 		vim.list_extend(ensure_installed, {
 			'stylua', -- Used to format Lua code
 			'shellcheck',
@@ -334,27 +429,46 @@ return { -- LSP Configuration & Plugins
 		})
 		require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+		-- Either merge all additional server configs from the `servers.mason` and `servers.others` tables
+		-- to the default language server configs as provided by nvim-lspconfig or
+		-- define a custom server config that's unavailable on nvim-lspconfig.
+		for server, config in pairs(vim.tbl_extend('keep', servers.mason, servers.others)) do
+			if not vim.tbl_isempty(config) then
+				vim.lsp.config(server, config)
+			end
+		end
+
+		-- After configuring our language servers, we now enable them
 		require('mason-lspconfig').setup {
 			---@type string[]
 			ensure_installed = {},
 
 			---@type boolean
-			automatic_installation = false,
-
-			---@type table<string, fun(server_name:string)>?
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for tsserver)
-					server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-
-					-- Extend the server's capabilities with blink.bmp
-					require('lspconfig')[server_name].setup(server)
-				end,
-			},
+			automatic_enable = true, -- automatically run vim.lsp.enable() for all servers that are installed via Mason
 		}
+
+		-- Manually run vim.lsp.enable for all language servers that are *not* installed via Mason
+		if not vim.tbl_isempty(servers.others) then
+			vim.lsp.enable(vim.tbl_keys(servers.others))
+		end
+
+		-- ---@type boolean
+		-- automatic_installation = false,
+		--
+		-- ---@type table<string, fun(server_name:string)>?
+		-- handlers = {
+		-- 	function(server_name)
+		-- 		local server = servers[server_name] or {}
+		--
+		-- 		-- This handles overriding only values explicitly passed
+		-- 		-- by the server configuration above. Useful when disabling
+		-- 		-- certain features of an LSP (for example, turning off formatting for tsserver)
+		-- 		server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+		--
+		-- 		-- Extend the server's capabilities with blink.bmp
+		-- 		require('lspconfig')[server_name].setup(server)
+		-- 	end,
+		-- },
+		-- }
 	end,
 }
