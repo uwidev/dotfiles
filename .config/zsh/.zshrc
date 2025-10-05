@@ -59,7 +59,7 @@ zle -N down-line-or-beginning-search
 # zle -N select-quoted
 # for m in visual viopp; do
 #     for c in {a,i}{\',\",\`}; do
-#         bindkey -M $m $c select-quoted
+#	  bindkey -M $m $c select-quoted
 #     done
 # done
 
@@ -155,6 +155,9 @@ ZO_EXCLUDE_DIRS='$HOME:/home/private'
 # (cat ~/.cache/wal/sequences) # pywal
 # cat ~/.cache/wallust/sequences # wallust
 
+# use neovim over less when viewering man pages
+export MANPAGER='nvim +Man!'
+
 ###########
 # ALIASES #
 ###########
@@ -194,14 +197,23 @@ alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 # }
 
 # yazi wrapper to cd as we navigate
-function yy() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
 }
+alias yy=y
+
+# function yy() {  # old yy
+#	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+#	yazi "$@" --cwd-file="$tmp"
+#	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+#		builtin cd -- "$cwd"
+#	fi
+#	rm -f -- "$tmp"
+# }
 
 # better folder navigation
 alias ..='cd ..'
@@ -228,12 +240,12 @@ alias rm='rm -i'
 # uv run autocomplete files fix
 # https://github.com/astral-sh/uv/issues/8432#issuecomment-2453494736
 _uv_run_mod() {
-    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
-        _arguments '*:filename:_files'
-    else
-        _uv "$@"
-    fi
+	if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+		_arguments '*:filename:_files'
+	else
+		_uv "$@"
+	fi
 }
 compdef _uv_run_mod uv
 
-# vim: ts=4
+alias ncp=ncmpcpp
