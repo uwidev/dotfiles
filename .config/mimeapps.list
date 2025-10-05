@@ -110,12 +110,12 @@ video/x-ogm+ogg=mpv.desktop;
 video/x-theora=mpv.desktop;
 video/x-theora+ogg=mpv.desktop;
 x-scheme-handler/chrome=userapp-Floorp-17FN12.desktop;
-x-scheme-handler/discord=vesktop.desktop
+x-scheme-handler/discord=vesktop.desktop;
+x-scheme-handler/discord-1216669957799018608=discord-1216669957799018608.desktop;
 x-scheme-handler/http=userapp-Floorp-17FN12.desktop;
 x-scheme-handler/https=userapp-Floorp-17FN12.desktop;
-x-scheme-handler/stabilitymatrix=stabilitymatrix.desktop
-x-scheme-handler/discord-1216669957799018608=discord-1216669957799018608.desktop
-x-scheme-handler/ror2mm=r2modman.desktop
+x-scheme-handler/ror2mm=r2modman.desktop;
+x-scheme-handler/stabilitymatrix=stabilitymatrix.desktop;
 [Added Associations]
 application/x-extension-htm=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
 application/x-extension-html=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
@@ -124,7 +124,7 @@ application/x-extension-xht=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.
 application/x-extension-xhtml=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
 application/xhtml+xml=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
 text/html=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
-x-scheme-handler/chrome=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
-x-scheme-handler/http=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
-x-scheme-handler/https=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
+x-scheme-handler/chrome=userapp-Floorp-17FN12.desktop;userapp-Floorp-EI7CY2.desktop;
+x-scheme-handler/http=userapp-Floorp-17FN12.desktop;userapp-Floorp-EI7CY2.desktop;
+x-scheme-handler/https=userapp-Floorp-17FN12.desktop;userapp-Floorp-EI7CY2.desktop;
 
