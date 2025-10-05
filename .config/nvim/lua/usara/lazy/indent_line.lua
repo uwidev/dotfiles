@@ -5,19 +5,17 @@ return {
 		-- See `:help ibl`
 		main = 'ibl',
 		opts = {
-			enabled = true,
 			indent = {
 				char = '├',
-				tab_char = { '│' },
+				tab_char = '│',
 				highlight = {
-					'DevColor1',
-					'DevColor2',
-					'DevColor3',
-					'DevColor4',
-					'DevColor5',
-					'DevColor6',
+					'Red',
+					'Green',
+					'Yellow',
+					'Blue',
+					'Magenta',
+					'Cyan',
 				},
-				repeat_linebreak = false,
 			},
 		},
 	},

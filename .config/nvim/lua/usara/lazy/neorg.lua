@@ -69,11 +69,7 @@ return { -- neorg support, better notes
 				},
 				['core.completion'] = {
 					config = { engine = { module_name = 'external.lsp-completion' } },
-					-- config = {
-					-- 	engine = 'nvim-cmp',
-					-- },
 				},
-				['core.integrations.nvim-cmp'] = {},
 				['core.keybinds'] = {
 					config = {
 						hook = function(keybinds)

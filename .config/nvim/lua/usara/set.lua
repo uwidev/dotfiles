@@ -14,6 +14,9 @@ vim.opt.expandtab = false
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
+-- Try not to overflow
+vim.opt.colorcolumn = '79'
+
 -- Do not use PEP8 for my own projects
 vim.g.python_recommended_style = 0
 
@@ -81,18 +84,19 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 7
 
--- Declare dev highlight groups to be later defined by lushwal
-for i = 0, 15 do
-	vim.api.nvim_set_hl(0, string.format('DevColor%d', i), {})
-end
+-- -- Declare dev highlight groups to be later defined by lushwal
+-- for i = 0, 15 do
+-- 	vim.api.nvim_set_hl(0, string.format('DevColor%d', i), {})
+-- end
 
 -- Enable folding
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+
 vim.opt.foldtext = ''
 vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 1
+vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 4
 
 -- -- Using UFO
@@ -100,3 +104,6 @@ vim.opt.foldnestmax = 4
 -- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 -- vim.o.foldlevelstart = 99
 -- vim.o.foldenable = true
+
+-- Conform (autoformat) setting
+vim.g.disable_autoformat = true

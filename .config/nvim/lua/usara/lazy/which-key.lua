@@ -18,7 +18,7 @@ return { -- Useful plugin to show you pending keybinds.
 		}
 		-- visual mode
 		require('which-key').add({
-			{ '<leader>h', group = 'Git [h]unk' },
+			-- { '<leader>h', group = 'Git [h]unk' },
 			{ '<leader>m', group = '[m]ove visual' },
 			{ '<leader>g', group = '[g]it' },
 		}, { mode = 'v' })
