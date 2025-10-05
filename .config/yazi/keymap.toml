@@ -41,6 +41,11 @@ run = "plugin restore"
 desc = "[d]elete [u]ndo"
 
 [[mgr.prepend_keymap]]
+on = ["<Delete>"]
+run = "remove"
+desc = "[d]o [d]elete"
+
+[[mgr.prepend_keymap]]
 on = ["d", "d"]
 run = "remove"
 desc = "[d]o [d]elete"
