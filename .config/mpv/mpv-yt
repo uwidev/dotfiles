@@ -1,4 +1,0 @@
-#!/bin/zsh
-
-yt-dlp --get-title --get-url $1 | IFS=$'\n' read -d '' title video audio
-mpv --force-media-title=$title --audio-file=<(yt-dlp --http-chunk-size 10M -o - $audio) <(yt-dlp --http-chunk-size 10M -o - $video)
