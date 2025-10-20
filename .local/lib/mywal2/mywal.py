@@ -11,7 +11,7 @@ import argparse
 
 
 wal_current_img = Path("~/.cache/wal/wal").expanduser()
-dir_default_imgs = Path("~/imgs/wal").expanduser()
+dir_default_imgs = Path("~/img/wal").expanduser()
 
 lib_dir = Path(__file__).resolve().parent
 
@@ -156,12 +156,13 @@ def main():
 	ref = args.reference or get_current_img()
 
 	im_pth = get_img(action, dir, ref)
+
 	apply_wallust(im_pth)
 	# apply_paper(im_pth)
 	apply_swww(im_pth)
 	apply_gtk()
 	apply_x()
-	apply_mako()
+	# apply_mako()
 	apply_fox()
 	apply_obsidian()
 
