@@ -7,12 +7,8 @@
 [general]
 # Mode at startup (viewer/gallery)
 mode = viewer
-# Window position (parent or absolute coordinates, e.g. 100,200)
-position = free
 # Sway/Hyprland only: Create floating window above the currently focused oneAdd commentMore actions
 overlay = yes
-# Window size (fullscreen/parent/image, or absolute size, e.g. 800,600)
-size = parent
 # Action performed by SIGUSR1 signal (same format as for key bindings)
 sigusr1 = reload
 # Action performed by SIGUSR2 signal (same format as for key bindings)
@@ -29,21 +25,11 @@ window = #000000FF
 # Background for transparent images (grid/RGBA)
 transparency = grid
 # Default image scale (optimal/fit/width/height/fill/real)
-# scale = fit
-# scale = optimal
-scale = keep
-# Keep absolute zoom across images (yes/no)
-keep_zoom = no
+scale = fit
 # Initial image position
-position = optimal
-# Fix position of the image on the window surface (yes/no)
-fixed = yes
+position = center
 # Anti-aliasing mode (none/box/bilinear/bicubic/mks13)
 antialiasing = mks13
-# Run slideshow at startup (yes/no)
-slideshow = no
-# Slideshow image display time (seconds)
-slideshow_time = 3
 # Number of previously viewed images to store in cache
 history = 16
 # Number of preloaded images (read ahead)
@@ -78,8 +64,6 @@ shadow = #000000ff
 [list]
 # Default order (none/alpha/reverse/random)
 order = alpha
-# Looping list of images (yes/no)
-loop = yes
 # Read directories recursively (yes/no)
 recursive = no
 # Open all files in the directory of the specified file (yes/no)
@@ -180,7 +164,6 @@ c = zoom height
 v = zoom fill
 e = zoom keep
 
-Alt+s = scale
 bracketleft = rotate_left
 bracketright = rotate_right
 m = flip_vertical
