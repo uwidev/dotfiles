@@ -17,12 +17,12 @@ return {
 				lua = 210,
 			},
 			highlight = {
-				'Red',
-				'Green',
-				'Yellow',
-				'Blue',
-				'Magenta',
-				'Cyan',
+				'RedBack',
+				'GreenBack',
+				'YellowBack',
+				'BlueBack',
+				'MagentaBack',
+				'CyanBack',
 			},
 		}
 	end,
