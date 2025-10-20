@@ -22,7 +22,7 @@ args = parser.parse_args()
 
 def get_file(dir: Path, ref: Path, action: str):
 	"""Get the next/prev file from a directory."""
-	files = sorted([f for f in dir.iterdir() if f.is_file()])
+	files = sorted([f.resolve() for f in dir.iterdir() if f.is_file()])
 
 	if ref not in files:
 		return files[0]
