@@ -51,9 +51,14 @@ run = "remove"
 desc = "[d]o [d]elete"
 
 [[mgr.prepend_keymap]]
-on = ["d", "D"]
+on = ["D"]
+run = "noop"
+# prefer lower keybind for safety
+
+[[mgr.prepend_keymap]]
+on = ["d", "<A-C-P>"]
 run = "remove --permanently"
-desc = "[d]o [D]elete permanently"
+desc = "do delete permanently"
 
 # ripdrag
 [[mgr.prepend_keymap]]
@@ -126,6 +131,12 @@ desc = "[f]ind exclude"
 # run = 'search --via=fd --args="-E .snapshots"'
 # desc = "[f]ind filenames"
 
+# fd only directories
+[[mgr.prepend_keymap]]
+on = "<A-f>"
+run = 'search --via=fd --args="-t d"'
+desc = "[f]ind directories"
+
 # relative motions
 [[mgr.prepend_keymap]]
 on = ["1"]
@@ -176,3 +187,26 @@ desc = "Move in relative steps"
 on = ["E"]
 run = "plugin eza-preview"
 desc = "Toggle tree/list dir preview"
+
+# smart enter, never open directories (which will open in nvim)
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+# # hide/show preview
+# [[mgr.prepend_keymap]]
+# on   = "T"
+# run  = "plugin toggle-pane min-preview"
+# desc = "Show or hide the preview pane"
+
+# max/restore preview
+[[mgr.prepend_keymap]]
+on   = "T"
+run  = "plugin toggle-pane max-preview"
+desc = "Maximize or restore the preview pane"
+
+# Force to use keys on pickers
+[[confirm.prepend_keymap]]
+on = "<Enter>"
+run = "close"
