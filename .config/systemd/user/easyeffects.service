@@ -1,5 +1,5 @@
 [Unit]
-Description=EasyEffects
+Description=Apply audio filters to devices
 After=pipewire-pulse.service
 BindsTo=pipewire-pulse.service
 PartOf=pipewire-pulse.service
