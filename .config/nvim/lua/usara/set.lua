@@ -107,3 +107,9 @@ vim.opt.foldnestmax = 4
 
 -- Conform (autoformat) setting
 vim.g.disable_autoformat = true
+
+-- Window title
+vim.opt.title = true
+vim.opt.titlelen = 0 -- do not shorten title
+vim.opt.titlestring = 'nvim %{fnamemodify(expand("%:p"), :~)}'
+
