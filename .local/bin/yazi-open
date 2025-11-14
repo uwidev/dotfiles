@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Open yazi at the provided directory or file with the cursor centered on the
+# most recent file.
+#
+# Useful for firefox "open directory" after downloading a file
+
+# Accepts one argument: directory or file
+arg="$1"
+
+# Find the newest regular file in the directory
+file=$(find "$arg" -maxdepth 1 -type f -printf '%T@ %p\0' \
+       | sort -znr \
+       | head -z -n1 \
+       | cut -z -d' ' -f2-)
+
+# Open either the newest file or the directory if no file found
+if [ -n "$file" ]; then
+    exec foot -e yazi "$file"
+else
+    exec foot -e yazi "$arg"
+fi

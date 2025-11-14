@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Yazi (in foot)
+Comment=Terminal file manager in foot with cursor on most recent file
+Type=Application
+Exec=/home/timmy/.local/bin/yazi-open %f
+Terminal=false
+NoDisplay=false
+MimeType=inode/directory;
+Icon=utilities-terminal
+Categories=System;TerminalEmulator;

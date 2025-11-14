@@ -69,6 +69,7 @@ image/x-xcf=swayimg.desktop;
 image/x-xcursor=swayimg.desktop;
 image/x-xpixmap=swayimg.desktop;org.nomacs.ImageLounge.desktop;
 image/x-xwindowdump=swayimg.desktop;
+inode/directory=yazi-foot-open.desktop;
 text/html=userapp-Floorp-17FN12.desktop;
 video/3gp=mpv.desktop;
 video/3gpp=mpv.desktop;
@@ -116,6 +117,7 @@ x-scheme-handler/http=userapp-Floorp-17FN12.desktop;
 x-scheme-handler/https=userapp-Floorp-17FN12.desktop;
 x-scheme-handler/ror2mm=r2modman.desktop;
 x-scheme-handler/stabilitymatrix=stabilitymatrix.desktop;
+x-scheme-handler/terminal=foot.desktop;
 [Added Associations]
 application/x-extension-htm=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
 application/x-extension-html=userapp-Floorp-EI7CY2.desktop;userapp-Floorp-17FN12.desktop;
