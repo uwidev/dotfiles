@@ -1,10 +1,13 @@
+# use this to init compltions instead of manual
+mattmc3/ez-compinit
+
 romkatv/zsh-defer
 Aloxaf/fzf-tab
 
 zdharma-continuum/fast-syntax-highlighting
 # zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-autosuggestions
-zsh-users/zsh-completions
+zsh-users/zsh-completions kind:fpath path:src
 zsh-users/zsh-history-substring-search # must come after syntax highlighting
 ocodo/ollama_zsh_completion kind:fpath
 

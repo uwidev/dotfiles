@@ -1,6 +1,6 @@
 ########### SETUP #########
 # zsh specific HISTFILE 
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}"/zsh/history
 export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
 export HISTDUP=erase
@@ -12,6 +12,12 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
+# Apply themeing from pywal
+# (cat ~/.cache/wal/sequences) # pywal
+cat ~/.cache/wallust/sequences # wallust
+
+# https://github.com/mattmc3/ez-compinit?tab=readme-ov-file#how-do-i-use-it
+zstyle ':plugin:ez-compinit' 'compstyle' 'zshzoo'
 
 # zsh histfile requires dir to already be there
 if [ ! -e "$HISTFILE" ]; then
@@ -20,11 +26,19 @@ fi
 
 # antidote plugin manager
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
+
+# local completions locally installed
+fpath=(
+	~/.config/zsh/completions
+	$fpath
+)
+
 source ${ZDOTDIR:-$HOME}/.antidote/antidote.zsh
 antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
-# set up necessary infrstructure for code completion
-autoload -Uz compinit
+# # set up necessary infrastructure for code completion
+# autoload -Uz compinit
+# compinit
 
 # Move zcoredumps out of home and init
 [[ ! -d "$XDG_CACHE_HOME"/zsh ]] && mkdir "$XDG_CACHE_HOME"/zsh
@@ -84,8 +98,31 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
+# # disable sort when completing `git checkout`
+# zstyle ':completion:*:git-checkout:*' sort false
+# # set descriptions format to enable group support
+# # NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+# zstyle ':completion:*:descriptions' format '[%d]'
+# # set list-colors to enable filename colorizing
+# zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+# zstyle ':completion:*' menu no
+# # preview directory's content with eza when completing cd
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# # custom fzf flags
+# # NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+# zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# # To make fzf-tab follow FZF_DEFAULT_OPTS.
+# # NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+# zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# # switch group using `<` and `>`
+# zstyle ':fzf-tab:*' switch-group '<' '>'
+
 # init fzf (fuzzy cd)
 eval "$(fzf --zsh)"
+
+# init niri comp
+eval "$(niri completions zsh)"
 
 # dynamically set window title
 autoload -Uz add-zsh-hook  # allow custom hook functions for zsh
@@ -103,12 +140,6 @@ if [[ "$TERM" == (Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|r
 	add-zsh-hook -Uz precmd xterm_title_precmd
 	add-zsh-hook -Uz preexec xterm_title_preexec
 fi
-
-# # we switched to uv to manage python
-# # pyenv
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
 
 # foot integration
 # https://codeberg.org/dnkl/foot/wiki#zsh
@@ -150,10 +181,6 @@ function preexec {
 # init zoxide better cd
 eval "$(zoxide init zsh)"
 ZO_EXCLUDE_DIRS='$HOME:/home/private'
-
-# Apply themeing from pywal
-# (cat ~/.cache/wal/sequences) # pywal
-# cat ~/.cache/wallust/sequences # wallust
 
 # use neovim over less when viewering man pages
 export MANPAGER='nvim +Man!'
@@ -206,15 +233,6 @@ function y() {
 }
 alias yy=y
 
-# function yy() {  # old yy
-#	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-#	yazi "$@" --cwd-file="$tmp"
-#	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-#		builtin cd -- "$cwd"
-#	fi
-#	rm -f -- "$tmp"
-# }
-
 # better folder navigation
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -231,12 +249,6 @@ alias jaub='journalctl --user -b'
 # this will make it ask always
 alias rm='rm -i'
 
-# # trashy aliases
-# alias trash-restore="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy restore --match=exact --force"
-# alias trash-empty="trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trashy empty --match=exact --force"
-
-# alias trash-restore='echo 0 | trash-restore $(trash-list | grep $(pwd) --color=never | sed "s/^[^/]*//" | fzf) > /dev/null'
-
 # uv run autocomplete files fix
 # https://github.com/astral-sh/uv/issues/8432#issuecomment-2453494736
 _uv_run_mod() {
@@ -249,3 +261,7 @@ _uv_run_mod() {
 compdef _uv_run_mod uv
 
 alias ncp=ncmpcpp
+
+# alias poweroff='echo "Poweroff disabled during trip to keep ssh alive."'
+
+alias sm=scrollmsg

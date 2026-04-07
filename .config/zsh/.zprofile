@@ -24,10 +24,10 @@ export XDG_CACHE_HOME=$HOME/.cache
 
 # Safely export XDG user dirs from user config
 cat $HOME/.config/user-dirs.dirs |
-sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
-while IFS='\n' read -r line; do
-    eval "export $line";
-done
+	sed '/^[A-Za-z_][A-Za-z0-9_]*=[^=]/!d' |
+	while IFS='\n' read -r line; do
+		eval "export $line";
+	done
 
 # Cleaning up home according to xdg-ninja
 # Enforce applications to use dirs defined in env vars not clutter home dir
@@ -52,13 +52,12 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # END xdg-ninja
 
 export EDITOR=nvim
+# export SYSTEMD_PAGER=bat
+# export SYSTEMD_PAGERSECURE=0
 # export HYPRLAND_NO_SD_NOTIFY=1
 
-# For Firefox Nvidia VA-API Hardware Acceleration
-# See https://wiki.hyprland.org/Nvidia/#va-api-hardware-video-acceleration
+# https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration
 export MOZ_DISABLE_RDD_SANDBOX=1
-export LIBVA_DRIVER_NAME=nvidia
-export __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 export ELECTRON_OZONE_PLATFORM_HINT=auto
 
@@ -118,10 +117,6 @@ export GDB_BACKEND=wayland,x11,*
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKEND=wayland
 
-# nvidia enablers
-LIBVA_DRIVER_NAME=nvidia
-__GLX_VENDOR_LIBRARY_NAME=nvidia
-
 # Fix electron apps... or at least try to
 ELECTRON_OZONE_PLATFORM_HINT=auto
 
@@ -146,7 +141,7 @@ export HYPRCURSOR_SIZE=24
 # fi
 
 # Place compositor into session.slice instead of default app.slice
-USWM_USER_SESSION_SLICE=true
+UWSM_USER_SESSION_SLICE=true
 
 # # uwsm check may-start auto checks
 # # Allows for selection of compositor
@@ -156,7 +151,15 @@ USWM_USER_SESSION_SLICE=true
 
 # Faster variant, cannot drop to tty
 if [[ -z "$SSH_TTY" && -z "$SSH_CONNECTION" ]]; then
-    if uwsm check may-start; then
-        exec uwsm start hyprland.desktop
-    fi
+
+	# if uwsm check may-start; then
+	#     exec uwsm start hyprland-uwsm.desktop
+	# fi
+
+	# niri-session
+
+	if uwsm check may-start; then
+		uwsm start scroll.desktop
+	fi
+
 fi
