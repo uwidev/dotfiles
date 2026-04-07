@@ -1,8 +1,14 @@
 backend = "fastresize"
-color_space = "lch"
-palette = "dark16"
-check_contrast = true
+# color_space = "lch"
+# palette = "dark16"
+color_space = "salience"
+# palette = "saliencedarklow16"
+palette = "saliencedarkbalanced16"
+# palette = "saliencedarkdistributed16"
+# palette = "saliencedark16"
+# check_contrast = true
 # saturation = 30
+# mode = "salience"
 
 [templates]
 colors = { src = "colors", dst = "~/.cache/wal/colors", pywal = true }
@@ -10,11 +16,11 @@ discord = { src = "discord-wallust-v3.css", dst = "~/.config/vesktop/themes/colo
 # discord = { src = "discord-colors.css", dst = "~/.cache/wallust/discord-colors.css", pywal = false }
 hyprland = { src = "colors-hyprland.conf", dst = "~/.config/hypr/pywal.conf", pywal = true }
 hyprland-borders = { src = "hyprland-borders.conf", dst = "~/.config/hypr/hyprland-borders.conf" }
-waybar = { src = "colors-waybar.css", dst = "~/.config/waybar/pywal.css", pywal = true }
+waybar = { src = "colors-waybar.css", dst = "~/.config/waybar/pywal.css", pywal = false }
 ags = { src = "colors.scss", dst = "~/.config/ags/style/colors.scss", pywal = true }
 xresources = { src = "colors.Xresources", dst = "~/.config/X11/Xresources.d/pywal.Xresources", pywal = true }
 rofi = { src = "colors-rofi-dark.rasi", dst = "~/.config/rofi/pywal.rasi", pywal = false }
-# mako = { src = "colors.sh", dst = "~/.cache/wal/colors.sh", pywal = false }
+mako = { src = "colors.sh", dst = "~/.cache/wal/colors.sh", pywal = false }
 termusic = { src = "colors-termusic.yml", dst = "~/.config/termusic/themes/pywal16.yml", pywal = true }
 img = { src = "wal", dst = "~/.cache/wal/wal", pywal = false }
 kvantun_conf = { src = "pywal.kvconfig", dst = "~/.config/Kvantum/pywal/pywal.kvconfig", pywal = false }
