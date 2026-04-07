@@ -24,6 +24,13 @@ def get_file(dir: Path, ref: Path, action: str):
 	"""Get the next/prev file from a directory."""
 	files = sorted([f.resolve() for f in dir.iterdir() if f.is_file()])
 
+	# I don't remember why this is here...
+	filenames = map(lambda f: f.stem.removesuffix("-desktop"), files)
+
+	if len(files) == 0:
+		msg = "There are no files!"
+		raise Exception(msg)
+
 	if ref not in files:
 		return files[0]
 

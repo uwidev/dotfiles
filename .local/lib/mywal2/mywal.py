@@ -33,7 +33,7 @@ def get_current_img() -> Path:
 		return fd.readline().strip()
 
 
-def get_img(action: str, dir: Path, result: Path) -> str:
+def get_img(action: str, dir: Path, ref: Path) -> str:
 	# retrieve img according to action
 	cmd_fscroll = [
 		f"{lib_dir}/file_scroller.py",
@@ -44,20 +44,21 @@ def get_img(action: str, dir: Path, result: Path) -> str:
 
 	cur_img = get_current_img()
 	while True:
-		result = subprocess.run(
-			cmd_fscroll + ["-r", result], capture_output=True, text=True, check=True
+		ref = subprocess.run(
+			cmd_fscroll + ["-r", ref], capture_output=True, text=True, check=True
 		).stdout.rstrip()
 
-		if is_image(Path(result)):
-			return Path(result)
+		if is_image(Path(ref)):
+			return Path(ref)
 
-		if result == str(cur_img):
+		if ref == str(cur_img):
 			return cur_img
 
 
 def apply_wallust(im_pth: Path):
 	# wallust...
 	cmd_wallust = "wallust run {}"
+	# cmd_wallust = "/home/timmy/.local/src/wallust/target/current/wallust run {}"
 
 	subprocess.run(cmd_wallust.format(im_pth), shell=True)
 
@@ -86,11 +87,11 @@ def apply_paper(im_pth: Path):
 		subprocess.run(cmd_paper_set.format(m, str(im_pth)), shell=True)
 
 
-def apply_swww(im_pth: Path):
+def apply_awww(im_pth: Path):
 	# alternative to hyprpaper... if it works properly.
-	cmd_swww = f'swww img "{str(im_pth)}" --transition-type any --transition-duration 1 --transition-fps 144 --resize crop'
+	cmd_awww = f'awww img "{str(im_pth)}" --transition-type any --transition-duration 1 --transition-fps 144 --resize crop'
 
-	subprocess.Popen(cmd_swww, shell=True)
+	subprocess.Popen(cmd_awww, shell=True)
 
 
 # sync with everything...!
@@ -159,7 +160,7 @@ def main():
 
 	apply_wallust(im_pth)
 	# apply_paper(im_pth)
-	apply_swww(im_pth)
+	apply_awww(im_pth)
 	apply_gtk()
 	apply_x()
 	# apply_mako()
