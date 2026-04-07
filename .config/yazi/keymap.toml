@@ -210,3 +210,7 @@ desc = "Maximize or restore the preview pane"
 [[confirm.prepend_keymap]]
 on = "<Enter>"
 run = "close"
+
+[[mgr.prepend_keymap]]
+on = "q"
+run = "plugin confirm-quit"

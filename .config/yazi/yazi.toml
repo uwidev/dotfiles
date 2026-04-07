@@ -1,6 +1,7 @@
 [mgr]
 sort_by = "mtime"
 sort_reverse = true
+title_format= "yazi: {cwd}"
 
 [preview]
 image_delay = 0
