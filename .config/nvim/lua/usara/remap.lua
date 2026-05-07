@@ -104,6 +104,7 @@ vim.keymap.set(
 	[[:%s/\v"(\_.{-})"/\='"' . substitute(submatch(1), "\n", "\\\\n", "g") . '"'/g<cr>]],
 	{ desc = 'format [j]oin \\r in ["]', silent = true }
 )
+vim.keymap.set('n', '<leader>fH', ":%s/\\v\\c\\e\\[[0-9;]*[a-zA-Z]//g<cr>", { desc = 'format no terminal [H]ighlight sequences,' })
 
 -- Alter movement when word wrap is enabled
 -- https://vimtricks.com/p/word-wrapping/
@@ -164,3 +165,6 @@ end, { noremap = true, desc = 'toggle [w]rap' })
 
 -- reverse selected lines
 vim.keymap.set("v", "<leader>fr", ":'<,'>!tac<CR>", { desc = "[f]ormat [r]everse" })
+
+vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[d]iagnostic [q]uickfix' })
+vim.keymap.set('n', '<leader>de', vim.diagnostic.setloclist, { desc = '[d]iagnostic [e]rrors' })

@@ -1,3 +1,6 @@
+-- -- Faster experimental loader
+vim.loader.enable()
+
 -- Nerd
 vim.g.have_nerd_font = true
 
@@ -89,21 +92,21 @@ vim.opt.scrolloff = 7
 -- 	vim.api.nvim_set_hl(0, string.format('DevColor%d', i), {})
 -- end
 
--- Enable folding
-
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-
-vim.opt.foldtext = ''
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 4
-
--- -- Using UFO
--- vim.o.foldcolumn = '1' -- '0' is not bad
--- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
--- vim.o.foldlevelstart = 99
--- vim.o.foldenable = true
+-- -- Enable folding
+--
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+--
+-- vim.opt.foldtext = ''
+-- vim.opt.foldlevel = 99
+-- vim.opt.foldlevelstart = 99
+-- vim.opt.foldnestmax = 4
+--
+-- -- -- Using UFO
+-- -- vim.o.foldcolumn = '1' -- '0' is not bad
+-- -- vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+-- -- vim.o.foldlevelstart = 99
+-- -- vim.o.foldenable = true
 
 -- Conform (autoformat) setting
 vim.g.disable_autoformat = true
@@ -111,5 +114,27 @@ vim.g.disable_autoformat = true
 -- Window title
 vim.opt.title = true
 vim.opt.titlelen = 0 -- do not shorten title
-vim.opt.titlestring = 'nvim %{fnamemodify(expand("%:p"), :~)}'
+vim.opt.titlestring = 'nvim %{fnamemodify(expand("%:p"), ":~")}'
 
+-- Diagnostics
+vim.diagnostic.config {
+	update_in_insert = false,
+	severity_sort = true,
+	float = { border = 'rounded', source = 'if_many' },
+	underline = { severity = { min = vim.diagnostic.severity.WARN } },
+
+	-- Can switch between these as you prefer
+	virtual_text = true, -- Text shows up at the end of the line
+	virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+
+	-- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+	jump = {
+		on_jump = function(_, bufnr)
+			vim.diagnostic.open_float {
+				bufnr = bufnr,
+				scope = 'cursor',
+				focus = false,
+			}
+		end,
+	},
+}
